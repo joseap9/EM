@@ -1,6 +1,9 @@
 import tkinter as tk
-
 from PIL import Image,ImageTk
+from Medico import *
+from Paciente import *
+from Persona import *
+from Especialidad import *
 from functions import display_logo,display_btnn
 from SolicitarAtencion import ventanaAtencion
 
