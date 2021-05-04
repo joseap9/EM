@@ -33,14 +33,14 @@ agregar_btn.grid(column=1, row=0)
 #boton medico esp
 imgM = Image.open('images/medicoEsp.png')
 imgM = ImageTk.PhotoImage(imgM)
-agregar_btn = tk.Button(root, image=imgM, borderwidth=0, command=lambda: ventanaAtencion())
-agregar_btn.grid(column=2, row=0)
+agregar_medicoE = tk.Button(root, image=imgM, borderwidth=0, command=lambda: ventanaAtencion())
+agregar_medicoE.grid(column=2, row=0)
 
-#boton Ingresar medico
-imgI = Image.open('images/IngresarMedico.png')
+#boton lista espera
+imgI = Image.open('images/listaE.png')
 imgI = ImageTk.PhotoImage(imgI)
-agregar_btn = tk.Button(root, image=imgI, borderwidth=0, command=lambda: ventanaAtencion())
-agregar_btn.grid(column=3, row=0)
+listaE = tk.Button(root, image=imgI, borderwidth=0, command=lambda: ventanaAtencion())
+listaE.grid(column=3, row=0)
 
 
 #Buscar Paciente
@@ -68,24 +68,30 @@ datosBox = tk.Text(root, height = 10, width= 35, padx=15,pady=15).place(x=474, y
 #boton Limpiar
 imgL = Image.open('images/Limpiar.png')
 imgL = ImageTk.PhotoImage(imgL)
-limpiar = tk.Button(root, image=imgL, borderwidth=0, bg="#0026fe", command=lambda: ventanaAtencion()).place(x= 565, y= 420)
+limpiar = tk.Button(root, image=imgL, borderwidth=0, bg="#0026fe").place(x= 565, y= 420)
+
 
 tk.Label(root, text = "Prox. Paciente",bg="#0026fe",fg="white",height = 1,font=("Aharoni",12,'bold') ).place(x=900,y=200)
 
 
 #textBox prox paciente
-proxPacienteBox = tk.Text(root, height = 2, width= 15, padx=15,pady=18).place(x=880, y=230)
+proxPacienteBox = tk.Text(root, height = 2, width= 15, padx=15,pady=18).place(x=880, y=250)
 
 
-tk.Label(root, text = "Lista de Espera",bg="#0026fe",fg="white",height = 1,font=("Aharoni",12,'bold') ).place(x=900,y=310)
-
-#textBox Lista de espera
-ListaEsperaBox = tk.Text(root, height = 6, width= 18, padx=15,pady=15).place(x=880, y=350)
 
 #boton siguiente
 imgS = Image.open('images/siguiente.png')
 imgS = ImageTk.PhotoImage(imgS)
-siguiente = tk.Button(root, image=imgS, borderwidth=0, bg="#0026fe", command=lambda: ventanaAtencion()).place(x= 1060, y= 240)
+siguiente = tk.Button(root, image=imgS, borderwidth=0, bg="#0026fe", command=lambda: ventanaAtencion()).place(x= 900, y= 350)
+
+
+#place(x=880, y=230)
+
+
+#tk.Label(root, text = "Lista de Espera",bg="#0026fe",fg="white",height = 1,font=("Aharoni",12,'bold') ).place(x=900,y=310)
+
+#textBox Lista de espera
+#ListaEsperaBox = tk.Text(root, height = 6, width= 18, padx=15,pady=15).place(x=880, y=350)
 
 
 
