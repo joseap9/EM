@@ -31,4 +31,4 @@ class Persona:
         return self.direccion
 
     def __str__(self):
-        return self.nombre + "\n" + str(self.edad) + "\n" + self.sexo + "\n" + self.direccion
+        return "nombre: " + self.nombre + "\nrut: " + str(self.rut) + "\nsexo: " + self.sexo + "\ndireccion: " + self.direccion

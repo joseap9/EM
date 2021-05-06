@@ -65,6 +65,7 @@ buscarE = tk.Button(root, image=img1, borderwidth=0, bg="#0026fe", command=lambd
 #textBox muestra datos del paciente
 datosBox = tk.Text(root, height = 10, width= 35, padx=15,pady=15).place(x=474, y=200)
 
+
 #boton Limpiar
 imgL = Image.open('images/Limpiar.png')
 imgL = ImageTk.PhotoImage(imgL)

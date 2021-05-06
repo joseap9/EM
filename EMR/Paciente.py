@@ -5,18 +5,19 @@ listaPacientes = []
 
 class Paciente(Persona):
 
-    def __init__(self,nombre,edad,sexo,direccion,estado,camaAsig,numeroDeAtencion):
-        super().__init__(nombre,edad,sexo,direccion)
+    def __init__(self,nombre,rut,sexo,direccion,diagnosticoI,estado,camaAsig,numeroDeAtencion):
+        super().__init__(nombre,rut,sexo,direccion)
         self.estado = estado
         self.camaAsig = camaAsig
         self.numeroDeAtencion = numeroDeAtencion
+        self.diagnosticoI=diagnosticoI
         # self.medicoTratante= #medico especialista podemos sacarlo del area y buscar el primer
         # medico que posea esta, deberia ser un afuncion la cual ejecutemos aqui
         # self.medicoPrioridad=#primer medico que lo atiende
 
 
-    def solicitarAtencion(self,nombre,edad,sexo,direccion, estado, camaAsig, numAtencion):
-        nuevoPaciente = Paciente(nombre,edad,sexo,direccion,estado,camaAsig,numAtencion)
+    def solicitarAtencion(self,nombre,rut,sexo,direccion,diagnosticoI, estado, camaAsig, numAtencion):
+        nuevoPaciente = Paciente(nombre,rut,sexo,direccion,diagnosticoI,estado,camaAsig,numAtencion)
         listaPacientes.append(nuevoPaciente)
 
         n = 1
@@ -31,7 +32,7 @@ class Paciente(Persona):
             print(listaPacientes[x].__str__())
 
     def __str__(self):
-        return super().__str__() + "\n" + str(self.camaAsig) + "\n" + self.estado + "\n" + str(self.numeroDeAtencion)
+        return super().__str__() + "\n"  + "diagnostico Inicial: " + self.diagnosticoI + "\n" + "estado: "+ self.estado + "\n" + "num de atencion" + str(self.numeroDeAtencion) + "\n" + "cama asig" +str(self.camaAsig)
 
     def getestado(self):
         return self.estado
