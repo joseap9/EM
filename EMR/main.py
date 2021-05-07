@@ -25,7 +25,7 @@ body.grid(columnspan = 5, row = 1)
 #botones principales
 
 #boton atencion
-img = Image.open('images/SolicitarAten.png')
+img = Image.open('images/SolicitarA.png')
 img = ImageTk.PhotoImage(img)
 agregar_btn = tk.Button(root, image=img, borderwidth=0, command=lambda: ventanaAtencion())
 agregar_btn.grid(column=1, row=0)

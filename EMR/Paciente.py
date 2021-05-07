@@ -1,4 +1,3 @@
-
 from Persona import *
 
 listaPacientes = []
