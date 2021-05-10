@@ -20,7 +20,7 @@ def display_btn(url,column,row,padx,pady,sticky):
 def display_btnn(url,x,y):
     img = Image.open(url)
     img = ImageTk.PhotoImage(img)
-    img.place(x=x,y=y)
+    
 
 
 

@@ -1,13 +1,13 @@
 class Especialidad:
-    def __init__(self):
-        self.idEspecialista = ""
-        self.nombre = ""
-        self.cantidadEspecialistas = 20
+    def __init__(self,iE,nE,cE):
+        self.idEspecialista = iE
+        self.nombreEspecialidad = nE
+        self.cantidadEspecialistas = cE
 
     def getidEspecialista(self):
         return self.idEspecialista
 
-    def getnombre(self):
+    def getNombreEspecialidad(self):
         return self.nombre
 
     # def cantidadEspecialistas(self):
@@ -15,7 +15,7 @@ class Especialidad:
     def setidEspecialista(self, id):
         self.idEspecialista = id
 
-    def setnombre(self, nom):
+    def setNombreEspecialidad(self, nom):
         self.nombre = nom
 
     def setcantidadEspecialistas(self, can):
