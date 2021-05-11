@@ -123,3 +123,9 @@ root.mainloop()
 
 #agregar_btn = tk.Button(root, text="lista de espera", font=("hp simplified",12), bg="#0026fe", fg="white", height=1, width=
 #agregar_btn = tk.Button(root, image=display_btn('./images/btn_agregar.png',1,0,20,60,"nw"),borderwidth=0,command="click")
+
+
+
+
+
+print("KJSDAFHAKLSDJFÑLDSJF{LKSDAL-FASÑLDK")

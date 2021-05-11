@@ -68,7 +68,8 @@ class Paciente(Persona):
         
         for x in range(len(listaPacientes)):
             if listaPacientes[x].getRut == rut:
-                print("TEST")
+                listaPacientes[x].muestra()
+
             else:
                 print("FAIL")
 
@@ -140,6 +141,8 @@ class Paciente(Persona):
         #mostrar.grid(padx=10, pady=10, row=7, column=0, columnspan=2)
 
         root.mainloop()
+
+
 
 
 
