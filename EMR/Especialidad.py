@@ -4,7 +4,7 @@ class Especialidad:
         self.nombreEspecialidad = nE
         self.cantidadEspecialistas = cE
 
-    def getidEspecialista(self):
+    def getIdEspecialista(self):
         return self.idEspecialista
 
     def getNombreEspecialidad(self):
@@ -12,11 +12,11 @@ class Especialidad:
 
     # def cantidadEspecialistas(self):
     # return self.cantidadEspecialistas()
-    def setidEspecialista(self, id):
+    def setIdEspecialista(self, id):
         self.idEspecialista = id
 
     def setNombreEspecialidad(self, nom):
         self.nombre = nom
 
-    def setcantidadEspecialistas(self, can):
+    def setCantidadEspecialistas(self, can):
         self.cantidadEspecialistas = can

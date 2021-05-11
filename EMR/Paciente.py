@@ -68,7 +68,8 @@ class Paciente(Persona):
         
         for x in range(len(listaPacientes)):
             if listaPacientes[x].getRut == rut:
-                print("TEST")
+                listaPacientes[x].muestra()
+
             else:
                 print("FAIL")
 
@@ -140,6 +141,24 @@ class Paciente(Persona):
         #mostrar.grid(padx=10, pady=10, row=7, column=0, columnspan=2)
 
         root.mainloop()
+
+    #def asigPrioridadPaciente(self, listaPacientes, prioridad):
+        if prioridad == 1:
+            listaPacientes.insert(1,nuevoPaciente)
+
+        elif prioridad == 2:
+            listaPacientes.insert(5,nuevoPaciente)
+
+        elif prioridad == 3:
+            listaPacientes.insert(10,nuevoPaciente)
+
+        elif prioridad == 4:
+            listaPacientes.insert(15,nuevoPaciente)
+
+        elif prioridad == 5:
+            listaPacientes.insert(20,nuevoPaciente)
+
+
 
 
 
