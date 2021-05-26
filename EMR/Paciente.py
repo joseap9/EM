@@ -1,7 +1,7 @@
 from Persona import *
 import tkinter as tk
 
-listaPacientes = []
+
 
 class Paciente(Persona):
 
@@ -12,6 +12,7 @@ class Paciente(Persona):
         self.numeroDeAtencion = numeroDeAtencion
         self.diagnosticoI=diagnosticoI
         self.despacho = despacho
+        self.listaPacientes = []
         
 
     def getEstado(self):
@@ -49,35 +50,188 @@ class Paciente(Persona):
     
     def solicitarAtencion(self,nombre,rut,sexo,direccion,diagnosticoI, estado, despacho, camaAsig, numAtencion):
         nuevoPaciente = Paciente(nombre,rut,sexo,direccion,diagnosticoI,estado,despacho,camaAsig,numAtencion)
-        listaPacientes.append(nuevoPaciente)
+        self.listaPacientes.append(nuevoPaciente)
 
         n = 1
-        for x in range(len(listaPacientes)):
-            if len(listaPacientes) == n:
+        for x in range(len(self.listaPacientes)):
+            if len(self.listaPacientes) == n:
                 print("agregado")
                 print("hay ", n, "pacientes agregados")
             n = n + 1
 
     def muestra(self):
-        for x in range(len(listaPacientes)):
-            print(listaPacientes[x].__str__())
+        for x in range(len(self.listaPacientes)):
+            return self.listaPacientes[x].__str__()
 
-
-
-    def buscaPorRut(self,rut):
-        
-        for x in range(len(listaPacientes)):
-            if listaPacientes[x].getRut == rut:
-                listaPacientes[x].muestra()
-
-            else:
-                print("FAIL")
-
+    
     def __str__(self):
-        return super().__str__() + "\n"  + "diagnostico Inicial: " + self.diagnosticoI + "\n" + "estado: "+ self.estado + "\n" + "despacho: "+ self.despacho+"\n" + "num de atencion" + str(self.numeroDeAtencion) + "\n" + "cama asig" +str(self.camaAsig)+"\n======================="
+        return super().__str__() + "\n" + self.diagnosticoI + "\n" + self.estado + "\n" + self.despacho+"\n" + str(self.numeroDeAtencion) + "\n" + str(self.camaAsig)+"\n==================================="
     
+
+
+class ListaTrauma:
+
+        listaPacientes = []  # Esta lista contendrá objetos de la clase Paciente
+
+        def __init__(self, listaPacientes=[]):
+            self.paciente = listaPacientes  
+
+        def getNombre(self):
+            for paciente in self.listaPacientes:
+                return paciente.getNombre()
     
-    def ventanaAtencion(self):
+        def getRut(self):
+            for paciente in self.listaPacientes:
+                return paciente.getRut()
+        
+        def getEstado(self):
+            for paciente in self.listaPacientes:
+                return paciente.getEstado()
+
+        def getDiagnosticoI(self):
+            for paciente in self.listaPacientes:
+                return paciente.getDiagnosticoI()
+     
+
+        def agregar(self, paciente):  
+            self.listaPacientes.append(paciente)
+
+        def mostrar(self):
+            for paciente in self.listaPacientes:
+                return paciente
+            return "no hay pacientes"
+
+        def buscar(self, rut):
+            for paciente in self.listaPacientes:
+                if paciente.getRut() == rut:
+                    return paciente
+            return "Paciente no registrado"
+
+
+class ListaCardio:
+
+    listaPaciente = []  # Esta lista contendrá objetos de la clase Paciente
+
+    def __init__(self, listaPaciente=[]):
+        self.paciente = listaPaciente       
+
+    def agregar(self, paciente):  
+        self.listaPaciente.append(paciente)
+
+    def mostrar(self):
+        for paciente in self.listaPaciente:
+            return paciente
+
+    def getNombre(self):
+        for paciente in self.listaPaciente:
+           return paciente.getNombre()
+    
+    def getRut(self):
+        for paciente in self.listaPaciente:
+           return paciente.getRut()
+    
+    def getEstado(self):
+        for paciente in self.listaPaciente:
+           return paciente.getEstado()
+
+    def getDiagnosticoI(self):
+        for paciente in self.listaPaciente:
+           return paciente.getDiagnosticoI()
+
+    def buscar(self, rut):
+        for paciente in self.listaPaciente:
+            if paciente.getRut() == rut:
+                return paciente
+        return "Paciente no registrado"
+
+
+class ListaCompleta:
+
+        listaPacientes = []  # Esta lista contendrá objetos de la clase Paciente
+
+        def __init__(self, listaPacientes=[]):
+            self.paciente = listaPacientes 
+
+        def getNombre(self):
+            for paciente in self.listaPacientes:
+                return paciente.getNombre()
+    
+        def getRut(self):
+            for paciente in self.listaPacientes:
+                return paciente.getRut()
+        
+        def getEstado(self):
+            for paciente in self.listaPacientes:
+                return paciente.getEstado()
+
+        def getDiagnosticoI(self):
+            for paciente in self.listaPacientes:
+                return paciente.getDiagnosticoI()      
+
+        def agregar(self, paciente):  
+            self.listaPacientes.append(paciente)
+
+        def mostrar(self):
+            
+            for paciente in self.listaPacientes:
+                return paciente
+
+
+        def buscar(self, rut):
+            for paciente in self.listaPacientes:
+                if paciente.getRut() == rut:
+                    return paciente
+            return "Paciente no registrado"
+
+
+class ListaNeuro:
+
+    listaPaciente = []  # Esta lista contendrá objetos de la clase Paciente
+
+    def __init__(self, listaPaciente=[]):
+        self.paciente = listaPaciente
+
+    def getNombre(self):
+        for paciente in self.listaPaciente:
+            return paciente.getNombre()
+    
+    def getRut(self):
+        for paciente in self.listaPaciente:
+            return paciente.getRut()
+        
+    def getEstado(self):
+        for paciente in self.listaPaciente:
+            return paciente.getEstado()
+
+    def getDiagnosticoI(self):
+        for paciente in self.listaPaciente:
+            return paciente.getDiagnosticoI() 
+    
+
+    def agregar(self, paciente):  
+        self.listaPaciente.append(paciente)
+
+    def mostrar(self):
+        for paciente in self.listaPaciente:
+            return paciente
+        return ""
+
+    def buscar(self, rut):
+        for paciente in self.listaPaciente:
+            if paciente.getRut() == rut:
+                return paciente
+        return "Paciente no registrado"
+    
+
+
+    
+
+
+
+
+
+
+def ventanaAtencion(self):
 
         def close_window(root):
             root.destroy()

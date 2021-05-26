@@ -2,6 +2,7 @@ from Persona import *
 from Especialidad import *
 from Paciente import *
 import tkinter as tk
+from tkinter import StringVar
 
 
 class Medico( Persona,Especialidad ):
@@ -49,8 +50,12 @@ class Medico( Persona,Especialidad ):
 
         def close_window(root):
             root.destroy()
+
+        def med(val):
+            print(val.get())
+
         
-        root = tk.Tk()
+        root = tk.Toplevel()
         root.title("Medico Especialista")
         root.geometry("550x500")
 
@@ -58,9 +63,17 @@ class Medico( Persona,Especialidad ):
 
         tk.Label(root, text="filtrar ", font=("Aharoni",10,'bold')).place(x=40,y=30)
         buscaP= tk.StringVar()
-        tk.Radiobutton(root, value="Traumatologia", variable=buscaP, text="Traumatologia").place(x=100,y=30)
-        tk.Radiobutton(root, value="neurologia", variable=buscaP, text="neurologia").place(x=220,y=30)
-        tk.Radiobutton(root, value="cardiologia", variable=buscaP, text="cardiologia").place(x=320,y=30)
+
+        trauma = tk.Radiobutton(root, value='Traumatologia', variable=buscaP, text='Traumatologia')
+        trauma.place(x=100,y=30)
+        trauma.select()
+
+        neuro = tk.Radiobutton(root, value='neurologia', variable=buscaP, text='neurologia')
+        neuro.place(x=220,y=30)
+
+        cardio = tk.Radiobutton(root, value='cardiologia', variable=buscaP, text='cardiologia')
+        cardio.place(x=320,y=30)
+
         tk.Button(root, text="ok", width=5).place(x=450,y=30)
 
         tk.Label(root, text="Nombre:").place(x=40, y=100)
@@ -94,7 +107,7 @@ class Medico( Persona,Especialidad ):
 
         tk.Button(root, text = "llamar autoridades",width = 15).place(x=77, y=425)
 
-        tk.Button(root, text = "alta medica",width = 10, command = lambda: close_window(root) ).place(x=250, y=425)
+        tk.Button(root, text = "alta medica",width = 10, command = lambda: [close_window(root) , med(buscaP)] ).place(x=250, y=425)
 
         tk.Button(root, text = "siguiente",width = 10).place(x=400, y=425)
 
