@@ -1,34 +1,50 @@
-from Persona import *
+
 from Especialidad import *
-from Paciente import *
 import tkinter as tk
-from tkinter import StringVar
 
 
-class Medico( Persona,Especialidad ):
+class Medico( Especialidad ):
 
-    def __init__(self,nombre,rut,sexo,direccion,idEspecialista,nombreEspecialidad,cantidadEspecialistas,idMedico):
-
-        Persona.__init__(self,nombre,rut,sexo,direccion)
-        Especialidad.__init__(self,idEspecialista,nombreEspecialidad,cantidadEspecialistas)
-        self.idMedico=idMedico
-
-
-
+    def __init__(self,nombreM,rutM,diagnostico,tratamiento,idEspecialista,nombreEspecialidad):
+        super().__init__(idEspecialista,nombreEspecialidad)
+        self.nombreM = nombreM
+        self.rutM = rutM
+        self.diagnostico = diagnostico
+        self.tratamiento=tratamiento
 
 
-    def getIdMedico(self):
-        return self.idMedico
+
+
+    def getNombreM(self):
+        return self.nombreM
+
+    def getRutM(self):
+        return self.rutM
 
     def setIdMedico(self,idMedico):
         self.idMedico=idMedico
+
+    def setDiagnostico(self,d):
+        self.diagnostico = d
+
+    def setTratamiento(self,t):
+        self.tratamiento = t
+
+    def muestraMedicoE(self):
+        return self.nombreM+" - "+self.rutM+" - "+self.nombreEspecialidad
+
+    def getDiagnostico(self):
+        return self.diagnostico
+
+    def getTratamiento(self):
+        return self.tratamiento
 
 
     #def altamedica(self,listaPacienteConCama,paciente):
         #devera eliminar de una lista de pacientes al paciente ingresado
 
-    #def indicarTratamiento(self,listaPacienteConCama):
-        #quedara porvesre que hace este elemento o si seguira dentro de medico
+    def indicarTratamiento(self,tratamiento):
+        return tratamiento
 
     #def diasnoticar(self,listaPacienteConCama):
         #metodo de selecion de area para un paciente
@@ -46,7 +62,48 @@ class Medico( Persona,Especialidad ):
     #def mostrarMedico(self,listadoDeMedicos):
         #buscar medico por el rut del medico
 
-    def ventanaMedicoEsp(self):
+class ListaMedicosTrauma:
+
+    listaMedicos = []  # Esta lista contendrá objetos de la clase Medico
+
+
+    def __init__(self, listaMedicos=[]):
+        self.medico = listaMedicos 
+
+    def getNombre(self):
+        for medico in self.listaMedicos:
+            return medico.getNombre()
+
+    def getRut(self):
+        for medico in self.listaMedicos:
+            return medico.getRut()
+
+    def getEsp(self):
+        for medico in self.listaMedicos:
+            return medico.getNombreEspecialidad()
+    
+    def getId(self):
+        for medico in self.listaMedicos:
+            return medico.getIdMedico()
+
+
+    def agregar(self, medico):  
+        self.listaMedicos.append(medico)
+
+    def mostrar(self):
+        
+        for medico in self.listaMedicos:
+            return medico
+
+
+    def buscar(self, rut):
+        for medico in self.listaMedicos:
+            if medico.getRut() == rut:
+                return medico
+        return "Medico no encontrado"
+
+
+def ventanaMedicoEsp():
 
         def close_window(root):
             root.destroy()

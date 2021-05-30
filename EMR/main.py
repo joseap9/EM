@@ -5,20 +5,78 @@ from Paciente import *
 from Persona import *
 from Especialidad import *
 from functions import display_logo
-#from SolicitarAtencion import *
-
-#coloca boton dasboard
 
 
 
-medico = Medico("","","","","","",20,"")
-paciente = Paciente("","-","-","","","","","","")
 
+medico = Medico("","","","","","")
+paciente = Paciente("","-","-","","","","","",""   ,"","","","","","")
 
+# Lista de pacientes
 listaTrauma = ListaTrauma([paciente])
 listaNeuro = ListaNeuro([paciente])
 listaCardio = ListaCardio([paciente])
 listaCompleta = ListaCompleta([paciente])
+
+listaTest = ListaEnlazada()
+
+
+#Lista de medicos
+#listaMedicosTrauma = ListaMedicosTrauma([medico])
+#listaMedicosTrauma.agregar(Medico("alberto","26970671-6","M","las casas 83","001","Traumatologia",542))
+medico = ["alberto","26970671-6","No disponible","No Disponible","543","Traumatologia"]
+
+def bLimpiar():
+    frame = Frame(root, width=410,height=221, bg ="#B3B6B7")
+    frame.place(x=404, y=200)
+    imgLim = Image.open("images/defLimpiar.png")
+    imgLim = ImageTk.PhotoImage(imgLim)
+    img_label = tk.Label(image = imgLim , bg="#B3B6B7")
+    img_label.Image = imgLim
+    img_label.place(x=404, y=200)
+
+    
+
+
+
+def mostrarEstado(rut,rutT, rutD):
+    txt = StringVar()
+    txt1 = StringVar()
+    txt2 = StringVar()
+    frame = Frame(root, width=410,height=221, bg ="#B3B6B7")
+    frame.place(x=404, y=200)
+    
+    
+    tMedico = Frame(root,width=413,height=30,bg="#909497" )
+    tMedico.place(x=404,y=200)
+    Label(root, text = "Medico Tratante",bg = "#909497", fg="black",height = 1,font=("Cascadia Code PL",12) ).place(x=530,y=202)
+    mMedico = Label(root, textvariable= txt,bg = "#B3B6B7", fg="#0026fe",height = 1,font=("Cascadia Code PL",10) )
+    mMedico.place(x=465,y=231)
+    txt.set(rut)
+    
+    
+    fDiagnostico = Frame(root,width=413,height=30,bg="#909497" )
+    fDiagnostico.place(x=404,y=260)
+    Label(root, text = "Diagnostico",bg = "#909497", fg="black",height = 1,font=("Cascadia Code PL",12) ).place(x=532,y=260)
+    tdiagnostico = Label(root, textvariable= txt1,bg = "#B3B6B7", fg="#0026fe",height = 1,font=("Cascadia Code PL",10) )
+    tdiagnostico.place(x=430,y=295)
+    txt1.set(rutD)
+
+    fTratamiento = Frame(root,width=413,height=30,bg="#909497" )
+    fTratamiento.place(x=404,y=320)
+    Label(root, text = "Tratamiento",bg = "#909497", fg="black",height = 1,font=("Cascadia Code PL",12) ).place(x=532,y=320)
+    ttratamiento = Label(root, textvariable = txt2,bg = "#B3B6B7", fg="#0026fe",height = 1,font=("Cascadia Code PL",10) )
+    ttratamiento.place(x=430, y=365)
+    txt2.set(rutT)
+
+
+
+
+
+
+    
+
+
 
 
 def mostrarDatos(rut):
@@ -37,7 +95,7 @@ def mostrarDatos(rut):
    
 
     #textBox muestra datos del paciente
-    datosBox = Text(root,height = 8.5, width= 25, padx=15,pady=15, font=("Cascadia Code PL SemiBold",12) ,bg = "#B3B6B7", fg="#0026fe")
+    datosBox = Text(root,height = 8.5, width= 26, padx=15,pady=15, font=("Cascadia Code PL SemiBold",12) ,bg = "#B3B6B7", fg="#0026fe")
     datosBox.insert(1.0,rut)
     datosBox.place(x=554, y=200)
 
@@ -95,26 +153,29 @@ txt = StringVar()
 
 imgD = Image.open('images/DatosP.png')
 imgD = ImageTk.PhotoImage(imgD)
-buscarD = Button(root, image=imgD, borderwidth=0, bg="#0026fe", command=lambda: [ mostrarDatos(listaCompleta.buscar(buscaPaciente.get()))]  )
+buscarD = Button(root, image=imgD, borderwidth=0, bg="#0026fe", command=lambda: [ mostrarDatos(listaCompleta.buscar(buscaPaciente.get())) ]  )
 buscarD.place(x= 47, y= 346)
 
 #boton estado paciente
 img1 = Image.open('images/EstadoP.png')
 img1 = ImageTk.PhotoImage(img1)
-buscarE = Button(root, image=img1, borderwidth=0, bg="#0026fe",command=lambda: txt.set(listaTrauma.buscar(buscaPaciente.get())))
+buscarE = Button(root, image=img1, borderwidth=0, bg="#0026fe",command=lambda:  [mostrarEstado(listaCompleta.buscarMedico(buscaPaciente.get()), listaCompleta.mostrarT(buscaPaciente.get()), listaCompleta.mostrarD(buscaPaciente.get()) ) , listaTest.imprimir()])
+#txt.set(listaTrauma.buscar(buscaPaciente.get() )), listaTest.imprimir()
 buscarE.place(x= 204, y= 346)
 
-#textBox muestra datos del paciente
-datosBox = Text(root,height = 8, width= 40, padx=15,pady=15, font=("Cascadia Code PL SemiBold",12), bg="#B3B6B7" , fg="black")
-datosBox.insert(5.0,"Datos")
-datosBox.place(x=404, y=200)
+#muestra datos del paciente
+imgLim = Image.open("images/defLimpiar.png")
+imgLim = ImageTk.PhotoImage(imgLim)
+img_label = tk.Label(image = imgLim , bg="#B3B6B7")
+img_label.Image = imgLim
+img_label.place(x=404, y=200)
 
 
 
 #boton Limpiar
 imgL = Image.open('images/Limpiar.png')
 imgL = ImageTk.PhotoImage(imgL)
-limpiar = Button(root, image=imgL, borderwidth=0, bg="#0026fe", command =lambda: print(listaCompleta.mostrar())).place(x= 540, y= 435)
+limpiar = Button(root, image=imgL, borderwidth=0, bg="#0026fe", command =lambda: bLimpiar() ).place(x= 540, y= 435)
 
 
 Label(root, text = "Prox. Paciente",bg="#0026fe",fg="white",height = 1,font=("Aharoni",12,'bold') ).place(x=918,y=250)
@@ -142,14 +203,16 @@ def ventanaAtencion():
         def close_window(root):
             root.destroy()
 
-        def listas(nombre,rut,sexo,direccion,diagI,estado,despacho):
+        def distribuirListas(nombre,rut,sexo,direccion,diagI,estado,despacho):
+            
+            listaCompleta.agregar(Paciente(nombre,rut,sexo,direccion,diagI,estado,despacho,"",""    ,medico[0],medico[1],medico[2],medico[3],medico[4],medico[5]))
     
             if despacho == "traumatologia":
-                listaTrauma.agregar(Paciente(nombre,rut,sexo,direccion,diagI,estado,despacho,"",""))
+                listaTrauma.agregar(Paciente(nombre,rut,sexo,direccion,diagI,estado,despacho,"",""  ,"","","","","","" ))
             elif despacho == "neurologia":
-                listaNeuro.agregar(Paciente(nombre,rut,sexo,direccion,diagI,estado,despacho,"",""))
+                listaNeuro.agregar(Paciente(nombre,rut,sexo,direccion,diagI,estado,despacho,"","" ,"","","","","","" ))
             elif despacho == "cardiologia":
-                listaCardio.agregar(Paciente(nombre,rut,sexo,direccion,diagI,estado,despacho,"","")) 
+                listaCardio.agregar(Paciente(nombre,rut,sexo,direccion,diagI,estado,despacho,"",""    ,"","","","","","" )) 
 
         
                 
@@ -220,7 +283,7 @@ def ventanaAtencion():
 
             
 
-        agregar = Button(root, text="Agregar", width=50, command=lambda: [listas(nombre.get(),rut.get(),sexo.get(),direccion.get(),diagI.get(),estado.get(),despacho.get()), listaCompleta.agregar(Paciente(nombre.get(),rut.get(),sexo.get(),direccion.get(),diagI.get(),estado.get(),despacho.get(),"","")) ,close_window(root) ])
+        agregar = Button(root, text="Agregar", width=50, command=lambda: [listaTest.encolar(Paciente(nombre.get(),rut.get(),sexo.get(),direccion.get(),diagI.get(),estado.get(),despacho.get(),"",""   ,"","","","","","" )),    distribuirListas(nombre.get(),rut.get(),sexo.get(),direccion.get(),diagI.get(),estado.get(),despacho.get()), close_window(root)   ])
         agregar.place(x=50,y=300)
 
         
@@ -228,7 +291,7 @@ def ventanaAtencion():
         #mostrar = Button(root, text="Listado de Pacientes", width=50, command=lambda: btnMostrar())
         #mostrar.grid(padx=10, pady=10, row=7, column=0, columnspan=2)
         #listaCompleta.agregar(Paciente(nombre.get(),rut.get(),sexo.get(),direccion.get(),diagI.get(),estado.get(),despacho.get(),"","")), listar.mostrar(),
-
+                                    #nombre,rut,sexo,direccion,diagI,estado,despacho,"","" 
         root.mainloop()
 
 def ventanaMedicoEsp():
@@ -237,6 +300,9 @@ def ventanaMedicoEsp():
         cRut = StringVar()
         cEstado = StringVar()
         cDiagI = StringVar()
+        rutP = StringVar()
+        tratamiento = StringVar()
+        diagnostico = StringVar()
 
         def close_window(root):
             root.destroy()
@@ -260,6 +326,8 @@ def ventanaMedicoEsp():
                 cEstado.set(listaNeuro.getEstado())
                 cDiagI.set(listaNeuro.getDiagnosticoI())
 
+
+        
             
 
 
@@ -296,8 +364,8 @@ def ventanaMedicoEsp():
 
         
         tk.Label(root, text="Rut:").place(x=40,y=130)
-        rut = tk.Entry(root, width=40,state="readonly",textvariable=cRut)
-        rut.place(x=170,y=130)
+        rutP = tk.Entry(root, width=40,state="readonly",textvariable=cRut)
+        rutP.place(x=170,y=130)
 
 
 
@@ -317,9 +385,9 @@ def ventanaMedicoEsp():
         tratamiento =  tk.Text(root, height = 5, width= 25, padx=15,pady=15)
         tratamiento.place(x=170,y=280)
 
-        tk.Button(root, text = "llamar autoridades",width = 15).place(x=77, y=425)
+        tk.Button(root, text = "alta medica",width = 15, command = lambda: listaCompleta.setTratamiento(tratamiento.get("1.0","end"))).place(x=77, y=425)
 
-        tk.Button(root, text = "alta medica",width = 10, command = lambda: [close_window(root)] ).place(x=250, y=425)
+        tk.Button(root, text = "actualizar",width = 10, command = lambda: [listaCompleta.actualizaT(rutP.get(),tratamiento.get("1.0","end")), listaCompleta.actualizaD(rutP.get(),diagnostico.get()) ] ).place(x=250, y=425)
 
         tk.Button(root, text = "siguiente",width = 10).place(x=400, y=425)
 
@@ -338,14 +406,6 @@ def ventanaMedicoEsp():
 
 
 root.mainloop()
-
-#agregar_btn = tk.Button(root, text="situacion de pacientes", font=("Aharoni",12,'bold'), bg="#0026fe", fg="white", height=1, width=18)
-#otro = tk.Button(root, text="otro", font=("hp simplified",12), bg="#0026fe", fg="white", height=1, width=12,command=lambda:print("click"))
-#otro.grid(column=1, row=0, pady=50, padx=100, )
-
-
-#agregar_btn = tk.Button(root, text="lista de espera", font=("hp simplified",12), bg="#0026fe", fg="white", height=1, width=
-#agregar_btn = tk.Button(root, image=display_btn('./images/btn_agregar.png',1,0,20,60,"nw"),borderwidth=0,command="click")
 
 
 
