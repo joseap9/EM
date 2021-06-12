@@ -29,6 +29,7 @@ class Medico( Especialidad ):
 
     def setTratamiento(self,t):
         self.tratamiento = t
+    
 
     def muestraMedicoE(self):
         return self.nombreM+" - "+self.rutM+" - "+self.nombreEspecialidad

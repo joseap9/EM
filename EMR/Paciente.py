@@ -1,3 +1,4 @@
+from tkinter.constants import NO
 from Medico import *
 from Persona import *
 from Nodo import *
@@ -7,12 +8,11 @@ import tkinter as tk
 
 class Paciente( Persona, Medico) :
 
-    def __init__(self,nombre,rut,sexo,direccion,diagnosticoI,estado,despacho,camaAsig,numeroDeAtencion, nombreM,rutM,diagnostico,tratamiento,idEspecialista,nombreEspecialidad):
+    def __init__(self,nombre,rut,sexo,direccion,diagnosticoI,estado,despacho,altaMedica, nombreM,rutM,diagnostico,tratamiento,idEspecialista,nombreEspecialidad):
         Persona.__init__(self,nombre,rut,sexo,direccion)
         Medico.__init__(self,nombreM,rutM,diagnostico,tratamiento,idEspecialista,nombreEspecialidad)
         self.estado = estado
-        self.camaAsig = camaAsig
-        self.numeroDeAtencion = numeroDeAtencion
+        self.altaMedica = altaMedica
         self.diagnosticoI=diagnosticoI
         self.despacho = despacho
         
@@ -20,11 +20,8 @@ class Paciente( Persona, Medico) :
     def getEstado(self):
         return self.estado
 
-    def getCamaAsig(self):
-        return self.camaAsig
-
-    def getNumeroDeAtencion(self):
-        return self.numeroDeAtencion
+    def getaltaMedica(self):
+        return self.altaMedica
     
     def getDespacho(self):
         return self.despacho
@@ -36,11 +33,9 @@ class Paciente( Persona, Medico) :
     def setEstado(self, estado):
         self.estado = estado
 
-    def setCamaAsig(self, camaAsig):
-        self.camaAsig = camaAsig
+    def setaltaMedica(self):
+        self.altaMedica = True
 
-    def setNumeroDeAtencion(self, n):
-        self.numeroDeAtencion = n
 
     def setDiagnosticoI(self,d):
         self.diagnosticoI = d
@@ -67,7 +62,7 @@ class Paciente( Persona, Medico) :
 
     
     def __str__(self):
-        return Persona.__str__(self) + "\n" + self.diagnosticoI + "\n" + self.estado + "\n" + self.despacho+"\n" + str(self.numeroDeAtencion) + "\n" + str(self.camaAsig)+"\n==================================="
+        return Persona.__str__(self) + "\n" + self.diagnosticoI + "\n" + self.estado + "\n" + self.despacho
     
 
 
@@ -110,7 +105,7 @@ class ListaTrauma:
         return "Paciente no registrado"
 
 
-class ListaCardio:
+class ListaCardioo:
 
     listaPaciente = []  # Esta lista contendrá objetos de la clase Paciente
 
@@ -153,6 +148,12 @@ class ListaCompleta():
 
     def __init__(self, listaPacientes=[]):
         self.paciente = listaPacientes 
+
+    def getPos(self, pos):
+        for x in len(0 , self.listaPacientes):
+            if x == pos:
+                return self.listaPacientes[x]
+        return False
 
     def getNombre(self):
         for paciente in self.listaPacientes:
@@ -201,15 +202,6 @@ class ListaCompleta():
                 return paciente.muestraMedicoE()
                
         return "Paciente no registrado"
-
-    
-    def actualizaTk(self, rut, tratamiento):
-        for paciente in self.listaPacientes:
-            if rut == paciente.getRut():
-                paciente.setTratamiento(tratamiento)
-                
-            else:
-                paciente.setTratamiento("no disponible")
 
         
         
@@ -288,66 +280,493 @@ class ListaNeuro:
         return ""
 
     def buscar(self, rut):
-        for paciente in self.listaPacientes:
+        for paciente in self.listaPaciente:
             if paciente.getRut() == rut:
                 return paciente
         return "Paciente no registrado"
 
-class ListaEnlazada:
-    
-    #_______________________________________________
 
+
+class ListaEnlazada: 
     def __init__(self):
-        # En el primer momento, tanto el primero como el último son None
-        self.primero = None
-        self.ultimo = None
-
-    #_______________________________________________
+        self.cabeza = None
+        self.cola = None
+        self.size = 0
+    #________________________________________________    
+    # Método para agregar elementos en el frente de la lsta encadena
+    def adicionarFrente(self, data):
+        self.cabeza = Nodo(data=data, proximo=self.cabeza)  
+    #________________________________________________
+    # Método para verificar si la estructura de datos esta vacia
+    def esVacio(self):
+        return self.cabeza == None
+    #_________________________________________________
+    # Método para agregar elementos al final de la lista encadenada 
+    def adicionarFinal(self, data):
+        self.size += 1
+        if not self.cabeza:
+            self.cabeza = Nodo(data=data)
+            return
+        curr = self.cabeza
+        while curr.proximo:
+            curr = curr.proximo
+        curr.proximo = Nodo(data=data)
     
-    def encolar(self, x):
-        nuevo = Nodo(x)
-        # Si ya hay un último, agrega el nuevo y cambia la referencia.
-        if self.ultimo:
-            self.ultimo.prox = nuevo
-            self.ultimo = nuevo
-        # Si la cola estaba vacía, el primero es también el último.
-        else:
-            self.primero = nuevo
-            self.ultimo = nuevo
+    # Método para eliminar Nodos
+    #__________________________________________________
+    def eliminarNodo(self, key):
+        curr = self.cabeza
+        prev = None
+        while curr and curr.data != key:
+            prev = curr
+            curr = curr.proximo
+        if prev is None:
+            self.cabeza = curr.proximo
+        elif curr:
+            prev.proximo = curr.proximo
+            curr.proximo = None
+    # __________________________________________
+    def estaEnLista(self,keyBuscar):
+          esta = False
+          curr=self.cabeza
+          while curr and not esta :
+              if curr.clave==keyBuscar :
+                      esta=True
+                      break
+              curr = curr.proximo
+          return esta
+    #___________________________________________________
+    # Método para obtener el ultimo Nodo
+    def ultimoNodo(self):
+        temp = self.cabeza
+        while(temp.proximo is not None):
+            temp = temp.proximo
+        print (temp.data)
 
-
-    def imprimir(self):
-        Nodo = self.primero
+    def PrimerNodo(self):
+        temp = self.cabeza
+        while(temp.proximo is not None):
+            temp = temp.proximo
+        print (temp.data)
+    #___________________________________________________
+    # Método para imprimir la lista de Nodos
+    def imprimirLista( self ):
+        Nodo = self.cabeza
         while Nodo != None:
-            print(Nodo.data, end = "\n")
+            print(Nodo.data, end ="\n ")
             Nodo = Nodo.proximo
 
-    def buscarPorRut(self,rut):
-        Nodo = self.primero
+    def contador(self):
+        Nodo =  self.cabeza
+        len = 0
+        while Nodo != None:
+            len = len + 1
+            Nodo = Nodo.proximo
+        return len
+
+    def borrarPrimero(self):
+        Nodo = self.cabeza
+        if self.esVacio() == False:
+            Nodo = Nodo.proximo
+
+    def iterar(self):
+        Nodo = self.cabeza
+        while Nodo:
+            dato = Nodo.data
+            Nodo = Nodo.proximo
+            yield dato
+
+    def buscarPorIterar(self , rut):
+        
+        for n in self.iterar():
+            if  rut == n.getRut():
+                return n
+        return "Paciente no registrado"
+
+
+    def buscarRut(self, rut):
+        Nodo = self.cabeza
         while Nodo != None:
             if Nodo.data.getRut() == rut:
                 return Nodo.data
             Nodo = Nodo.proximo
-        return "paciente no registrado"
+        return "Paciente no registrado"
 
-    #_______________________________________________
+    def buscarMedicoPorRut(self , rut):
         
-    def desencolar(self):
-        # Si hay un nodo para desencolar
-        if self.primero:
-            valor = self.primero.dato
-            self.primero = self.primero.prox
-        # Si después de avanzar no quedó nada, también hay que
-        # eliminar la referencia del último.
-        if not self.primero:
-            self.ultimo = None
-            return valor
-        else:
-            raise ValueError("La cola está vacía")
-#_______________________________________________
+        for n in self.iterar():
+            if  rut == n.getRut():
+                return n.muestraMedicoE()
+        return "Paciente no registrado"
+
+    def buscarTratamientoPorRut(self , rut):
         
-    def es_vacia(self):
-          return self.items == []
+        for n in self.iterar():
+            if  rut == n.getRut():
+                return n.getTratamiento()
+        return "---"
+
+    def buscarDiagnosticoPorRut(self , rut):
+        
+        for n in self.iterar():
+            if  rut == n.getRut():
+                return n.getDiagnostico()
+        return "---"
+
+    def borrarPorRut(self , rut):
+        anterior = self.cabeza
+        actual =  self.cabeza
+       
+        while actual:
+            if actual.data.getRut() == rut:
+                if actual == self.cabeza:
+                    self.cabeza = actual.proximo
+                else:
+                    anterior.proximo = actual.proximo
+                self.size -= 1
+                return
+            anterior = actual
+            actual = actual.proximo
+            
+
+    def __getitem__(self, index):
+        
+        Nodo = self.cabeza
+
+        for i in range(index):
+            Nodo = Nodo.proximo
+        return Nodo.data
+       
+
+
+class ListaTrauma: 
+    def __init__(self):
+        self.cabeza = None
+    #________________________________________________    
+    # Método para agregar elementos en el frente de la lsta encadena
+    def adicionarFrente(self, data):
+        self.cabeza = Nodo(data=data, proximo=self.cabeza)  
+    #________________________________________________
+    # Método para verificar si la estructura de datos esta vacia
+    def esVacio(self):
+        return self.cabeza == None
+    #_________________________________________________
+    # Método para agregar elementos al final de la lista encadenada 
+    def adicionarFinal(self, data):
+        if not self.cabeza:
+            self.cabeza = Nodo(data=data)
+            return
+        curr = self.cabeza
+        while curr.proximo:
+            curr = curr.proximo
+        curr.proximo = Nodo(data=data)
+    
+    # Método para eliminar Nodos
+    #__________________________________________________
+    def eliminarNodo(self, key):
+        curr = self.cabeza
+        prev = None
+        while curr and curr.data != key:
+            prev = curr
+            curr = curr.proximo
+        if prev is None:
+            self.cabeza = curr.proximo
+        elif curr:
+            prev.proximo = curr.proximo
+            curr.proximo = None
+    # __________________________________________
+    def estaEnLista(self,keyBuscar):
+          esta = False
+          curr=self.cabeza
+          while curr and not esta :
+              if curr.clave==keyBuscar :
+                      esta=True
+                      break
+              curr = curr.proximo
+          return esta
+    #___________________________________________________
+    # Método para obtener el ultimo Nodo
+    def ultimoNodo(self):
+        temp = self.cabeza
+        while(temp.proximo is not None):
+            temp = temp.proximo
+        print (temp.data)
+
+    def PrimerNodo(self):
+        temp = self.cabeza
+        while(temp.proximo is not None):
+            temp = temp.proximo
+        print (temp.data)
+    #___________________________________________________
+    # Método para imprimir la lista de Nodos
+    def imprimirLista( self ):
+        Nodo = self.cabeza
+        while Nodo != None:
+            print(Nodo.data, end ="\n ")
+            Nodo = Nodo.proximo
+
+    def contador(self):
+        Nodo =  self.cabeza
+        len = 0
+        while Nodo != None:
+            len = len + 1
+            Nodo = Nodo.proximo
+        return len
+
+    def borrarPrimero(self):
+        Nodo = self.cabeza
+        if self.esVacio() == False:
+            Nodo = Nodo.proximo
+
+    def iterar(self):
+        Nodo = self.cabeza
+        while Nodo:
+            dato = Nodo.data
+            Nodo = Nodo.proximo
+            yield dato
+
+    def buscarPorIterar(self , rut):
+        
+        for n in self.iterar():
+            if  rut == n.getRut():
+                return n
+        return "Paciente no registrado"
+
+
+    def buscarRut(self, rut):
+        Nodo = self.cabeza
+        while Nodo != None:
+            if Nodo.data.getRut() == rut:
+                return Nodo.data
+            Nodo = Nodo.proximo
+        return "Paciente no registrado"
+
+    def __getitem__(self, index):
+        Nodo = self.cabeza
+        for i in range(index):
+            Nodo = Nodo.proximo
+        return Nodo.data
+
+
+class ListaNeuro: 
+    def __init__(self):
+        self.cabeza = None
+    #________________________________________________    
+    # Método para agregar elementos en el frente de la lsta encadena
+    def adicionarFrente(self, data):
+        self.cabeza = Nodo(data=data, proximo=self.cabeza)  
+    #________________________________________________
+    # Método para verificar si la estructura de datos esta vacia
+    def esVacio(self):
+        return self.cabeza == None
+    #_________________________________________________
+    # Método para agregar elementos al final de la lista encadenada 
+    def adicionarFinal(self, data):
+        if not self.cabeza:
+            self.cabeza = Nodo(data=data)
+            return
+        curr = self.cabeza
+        while curr.proximo:
+            curr = curr.proximo
+        curr.proximo = Nodo(data=data)
+    
+    # Método para eliminar Nodos
+    #__________________________________________________
+    def eliminarNodo(self, key):
+        curr = self.cabeza
+        prev = None
+        while curr and curr.data != key:
+            prev = curr
+            curr = curr.proximo
+        if prev is None:
+            self.cabeza = curr.proximo
+        elif curr:
+            prev.proximo = curr.proximo
+            curr.proximo = None
+    # __________________________________________
+    def estaEnLista(self,keyBuscar):
+          esta = False
+          curr=self.cabeza
+          while curr and not esta :
+              if curr.clave==keyBuscar :
+                      esta=True
+                      break
+              curr = curr.proximo
+          return esta
+    #___________________________________________________
+    # Método para obtener el ultimo Nodo
+    def ultimoNodo(self):
+        temp = self.cabeza
+        while(temp.proximo is not None):
+            temp = temp.proximo
+        print (temp.data)
+
+    def PrimerNodo(self):
+        temp = self.cabeza
+        while(temp.proximo is not None):
+            temp = temp.proximo
+        print (temp.data)
+    #___________________________________________________
+    # Método para imprimir la lista de Nodos
+    def imprimirLista( self ):
+        Nodo = self.cabeza
+        while Nodo != None:
+            print(Nodo.data, end ="\n ")
+            Nodo = Nodo.proximo
+
+    def contador(self):
+        Nodo =  self.cabeza
+        len = 0
+        while Nodo != None:
+            len = len + 1
+            Nodo = Nodo.proximo
+        return len
+
+    def borrarPrimero(self):
+        Nodo = self.cabeza
+        if self.esVacio() == False:
+            Nodo = Nodo.proximo
+
+    def iterar(self):
+        Nodo = self.cabeza
+        while Nodo:
+            dato = Nodo.data
+            Nodo = Nodo.proximo
+            yield dato
+
+    def buscarPorIterar(self , rut):
+        
+        for n in self.iterar():
+            if  rut == n.getRut():
+                return n
+        return "Paciente no registrado"
+
+
+    def buscarRut(self, rut):
+        Nodo = self.cabeza
+        while Nodo != None:
+            if Nodo.data.getRut() == rut:
+                return Nodo.data
+            Nodo = Nodo.proximo
+        return "Paciente no registrado"
+
+    def __getitem__(self, index):
+        Nodo = self.cabeza
+        for i in range(index):
+            Nodo = Nodo.proximo
+        return Nodo.data
+
+class ListaCardio: 
+    def __init__(self):
+        self.cabeza = None
+    #________________________________________________    
+    # Método para agregar elementos en el frente de la lsta encadena
+    def adicionarFrente(self, data):
+        self.cabeza = Nodo(data=data, proximo=self.cabeza)  
+    #________________________________________________
+    # Método para verificar si la estructura de datos esta vacia
+    def esVacio(self):
+        return self.cabeza == None
+    #_________________________________________________
+    # Método para agregar elementos al final de la lista encadenada 
+    def adicionarFinal(self, data):
+        if not self.cabeza:
+            self.cabeza = Nodo(data=data)
+            return
+        curr = self.cabeza
+        while curr.proximo:
+            curr = curr.proximo
+        curr.proximo = Nodo(data=data)
+    
+    # Método para eliminar Nodos
+    #__________________________________________________
+    def eliminarNodo(self, key):
+        curr = self.cabeza
+        prev = None
+        while curr and curr.data != key:
+            prev = curr
+            curr = curr.proximo
+        if prev is None:
+            self.cabeza = curr.proximo
+        elif curr:
+            prev.proximo = curr.proximo
+            curr.proximo = None
+    # __________________________________________
+    def estaEnLista(self,keyBuscar):
+          esta = False
+          curr=self.cabeza
+          while curr and not esta :
+              if curr.clave==keyBuscar :
+                      esta=True
+                      break
+              curr = curr.proximo
+          return esta
+    #___________________________________________________
+    # Método para obtener el ultimo Nodo
+    def ultimoNodo(self):
+        temp = self.cabeza
+        while(temp.proximo is not None):
+            temp = temp.proximo
+        print (temp.data)
+
+    def PrimerNodo(self):
+        temp = self.cabeza
+        while(temp.proximo is not None):
+            temp = temp.proximo
+        print (temp.data)
+    #___________________________________________________
+    # Método para imprimir la lista de Nodos
+    def imprimirLista( self ):
+        Nodo = self.cabeza
+        while Nodo != None:
+            print(Nodo.data, end ="\n ")
+            Nodo = Nodo.proximo
+
+    def contador(self):
+        Nodo =  self.cabeza
+        len = 0
+        while Nodo != None:
+            len = len + 1
+            Nodo = Nodo.proximo
+        return len
+
+    def borrarPrimero(self):
+        Nodo = self.cabeza
+        if self.esVacio() == False:
+            Nodo = Nodo.proximo
+
+    def iterar(self):
+        Nodo = self.cabeza
+        while Nodo:
+            dato = Nodo.data
+            Nodo = Nodo.proximo
+            yield dato
+
+    def buscarPorIterar(self , rut):
+        
+        for n in self.iterar():
+            if  rut == n.getRut():
+                return n
+        return "Paciente no registrado"
+
+
+    def buscarRut(self, rut):
+        Nodo = self.cabeza
+        while Nodo != None:
+            if Nodo.data.getRut() == rut:
+                return Nodo.data
+            Nodo = Nodo.proximo
+        return "Paciente no registrado"
+
+    def __getitem__(self, index):
+        Nodo = self.cabeza
+        for i in range(index):
+            Nodo = Nodo.proximo
+        return Nodo.data
+
+
+        
+
 
     
 
