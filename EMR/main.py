@@ -17,11 +17,6 @@ from functions import display_logo
 medico = Medico("","","","","","")
 paciente = Paciente("","-","-","","","","",False  ,"","","","","","")
 
-# Lista de pacientes
-#listaTraumaa = ListaTrauma([paciente])
-#listaNeuroo = ListaNeuro([paciente])
-#listaCardioo = ListaCardio([paciente])
-#listaCompletaa = ListaCompleta([paciente])
 
 # lista completa de pacientes
 listaEnlazada = ListaEnlazada()
@@ -260,7 +255,7 @@ def ventanaAtencion():
             
         imgAgregar = Image.open('images/solAtenAgregar.png')
         imgAgregar= ImageTk.PhotoImage(imgAgregar)
-        agregar = Button(root, image=imgAgregar, borderwidth=0, bg = "#00B8FF", command=lambda: [distribuirListas(nombre.get(),rut.get(),sexo.get(),direccion.get(),diagI.get(),estado.get(),despacho.get())  ])
+        agregar = Button(root, image=imgAgregar, borderwidth=0, bg = "#00B8FF", command=lambda: [distribuirListas(nombre.get(),rut.get(),sexo.get(),direccion.get(),diagI.get(),estado.get(),despacho.get()), ActualizaTabla()])
         agregar.place(x=350 ,  y = 280)
 
         imgBack = Image.open('images/solAtenAtras.png')
@@ -279,94 +274,7 @@ def ventanaAtencion():
         root.mainloop()
 
 
-
-
-
-def tratarPacientes():
-
-
-    
-    def selectPacient(tabla):
-
-
-        def close_window(root):
-            root.destroy()
-
-        def guardaT():
-            
-            
-            listaEnlazada[index].setDiagnostico(diagnostico.get())
-            listaEnlazada[index].setTratamiento(tratamiento.get("1.0","end"))
-
-        top = Toplevel(roott)
-        top.geometry("350x270")
-        top.title("Diagnostico")
-        header = Frame(top, width = 500, height = 120)
-        header.pack()
-        body = Frame(top, width = 500, height = 380, bg = "#00B8FF")
-        body.pack()
-        
-        selected = tabla.focus()
-        values = tabla.item(selected, 'values')
-        index = int(values[0])
-        
-        
-
-        tk.Label(top, text="Diagnostico:").place(x=125 , y = 10)
-        diagnostico = tk.Entry(top, width=40)
-        diagnostico.place(x = 50, y = 30)
-
-        tk.Label(top, text="Tratamiento:").place(x = 125, y = 50)
-        tratamiento =  tk.Text(top, height = 5, width= 25, padx=15,pady=15)
-        tratamiento.place(x= 50, y = 70)
-
-        '''
-        imgAgregarr = Image.open('images/solAtenAgregar.png')
-        imgAgregarr= ImageTk.PhotoImage(imgAgregarr)
-        agregarr = Button(root, image=imgAgregarr, borderwidth=0, bg = "#00B8FF", command=lambda: [guardaT(), close_window(top)   ])
-        agregarr.place(x = 100, y = 100)
-
-        imgBackk = Image.open('images/solAtenAtras.png')
-        imgBackk= ImageTk.PhotoImage(imgBackk)
-        backk = Button(root, image=imgBackk, borderwidth=0, bg = "#00B8FF", command=lambda: [close_window(top)   ])
-        backk.place( x = 200 , y = 200)
-        '''
-                
-        imgAgrega = Image.open('images/solAtenAgregar.png')
-        imgAgrega= ImageTk.PhotoImage(imgAgrega)
-        agrega = Button(top, image=imgAgrega, borderwidth=0, bg = "#00B8FF",command=lambda:[guardaT(), close_window(top)]   )
-        agrega.place(x=210 ,  y = 200)
-
-        imgBac = Image.open('images/solAtenAtras.png')
-        imgBac= ImageTk.PhotoImage(imgBac)
-        bac = Button(top, image=imgBac, borderwidth=0, bg = "#00B8FF",command=lambda:close_window(top))
-        bac.place(x= 280,  y = 200)
-        #guardaB = Button(top, text="Diagnosticar", width=50, bg = "#00B8FF", command=lambda: [print(index), guardaT(), close_window(top)])
-        #guardaB.pack(pady = 5)
-
-        top.mainloop()
-
-    
-    def altaMedica(tabla):
-        
-        selected = tabla.focus()
-        values = tabla.item(selected, 'values')
-        index = int(values[0])
-        listaEnlazada[index].setaltaMedica()
-
-        listaPacientesAM.adicionarFinal(Paciente(listaEnlazada[index].getNombre(),listaEnlazada[index].getRut(),listaEnlazada[index].getSexo(),listaEnlazada[index].getDireccion(),listaEnlazada[index].getDiagnosticoI(),listaEnlazada[index].getEstado(),listaEnlazada[index].getDespacho(),True ,listaEnlazada[index].getNombreM(),listaEnlazada[index].getRutM(),listaEnlazada[index].getDiagnostico(),listaEnlazada[index].getTratamiento(),listaEnlazada[index].getIdEspecialista(),listaEnlazada[index].getNombreEspecialidad()))
-        
-        rutActual = listaEnlazada[index].getRut()
-        listaEnlazada.borrarPorRut(rutActual)
-    
-
-
-
-    def showInfo():
-        messagebox.showinfo("Info","Alta Medica Completa\n\nActualice para reflejar cambios en tabla", parent = roott)
-        
-
-    def info(tabla):
+def info(tabla):
 
         def close_window(root):
             root.destroy()
@@ -414,7 +322,8 @@ def tratarPacientes():
 
         selected = tabla.focus()
         values = tabla.item(selected, 'values')
-        index = int(values[0])
+        indexx = int(values[0])
+        index = indexx - 1
 
         cNom.set(listaEnlazada[index].getNombre())
         cRut.set(listaEnlazada[index].getRut())
@@ -424,7 +333,7 @@ def tratarPacientes():
         cDireccion.set(listaEnlazada[index].getDireccion())
         
 
-        info = Toplevel(roott)
+        info = Toplevel()
         info.title("Paciente "+listaEnlazada[index].getNombre())
         info.geometry("500x420")
         header = Frame(info, width = 550, height = 120)
@@ -519,6 +428,86 @@ def tratarPacientes():
 
 
         info.mainloop()
+
+
+def tratarPacientes():
+
+
+    
+    def selectPacient(tabla):
+
+
+        def close_window(root):
+            root.destroy()
+
+        def guardaT():
+            
+            
+            listaEnlazada[index].setDiagnostico(diagnostico.get())
+            listaEnlazada[index].setTratamiento(tratamiento.get("1.0","end"))
+
+        top = Toplevel(roott)
+        top.geometry("350x270")
+        top.title("Diagnostico")
+        header = Frame(top, width = 500, height = 120)
+        header.pack()
+        body = Frame(top, width = 500, height = 380, bg = "#00B8FF")
+        body.pack()
+        
+        selected = tabla.focus()
+        values = tabla.item(selected, 'values')
+        indexx = int(values[0])
+        index = indexx - 1
+        
+        
+
+        tk.Label(top, text="Diagnostico:").place(x=125 , y = 10)
+        diagnostico = tk.Entry(top, width=40)
+        diagnostico.place(x = 50, y = 30)
+
+        tk.Label(top, text="Tratamiento:").place(x = 125, y = 50)
+        tratamiento =  tk.Text(top, height = 5, width= 25, padx=15,pady=15)
+        tratamiento.place(x= 50, y = 70)
+
+    
+        
+                
+        imgAgrega = Image.open('images/solAtenAgregar.png')
+        imgAgrega= ImageTk.PhotoImage(imgAgrega)
+        agrega = Button(top, image=imgAgrega, borderwidth=0, bg = "#00B8FF",command=lambda:[guardaT(), close_window(top)]   )
+        agrega.place(x=210 ,  y = 200)
+
+        imgBac = Image.open('images/solAtenAtras.png')
+        imgBac= ImageTk.PhotoImage(imgBac)
+        bac = Button(top, image=imgBac, borderwidth=0, bg = "#00B8FF",command=lambda:close_window(top))
+        bac.place(x= 280,  y = 200)
+        #guardaB = Button(top, text="Diagnosticar", width=50, bg = "#00B8FF", command=lambda: [print(index), guardaT(), close_window(top)])
+        #guardaB.pack(pady = 5)
+
+        top.mainloop()
+
+    
+    def altaMedica(tabla):
+        
+        selected = tabla.focus()
+        values = tabla.item(selected, 'values')
+        indexx = int(values[0])
+        index = indexx - 1
+        listaEnlazada[index].setaltaMedica()
+
+        listaPacientesAM.adicionarFinal(Paciente(listaEnlazada[index].getNombre(),listaEnlazada[index].getRut(),listaEnlazada[index].getSexo(),listaEnlazada[index].getDireccion(),listaEnlazada[index].getDiagnosticoI(),listaEnlazada[index].getEstado(),listaEnlazada[index].getDespacho(),True ,listaEnlazada[index].getNombreM(),listaEnlazada[index].getRutM(),listaEnlazada[index].getDiagnostico(),listaEnlazada[index].getTratamiento(),listaEnlazada[index].getIdEspecialista(),listaEnlazada[index].getNombreEspecialidad()))
+        
+        rutActual = listaEnlazada[index].getRut()
+        listaEnlazada.borrarPorRut(rutActual)
+    
+
+
+
+    def showInfo():
+        messagebox.showinfo("Info","Alta Medica Completa\n\nActualice para reflejar cambios en tabla", parent = roott)
+        
+
+    
         
 
     
@@ -618,7 +607,7 @@ def tratarPacientes():
     
 
     #agregando elementos
-    index = 0
+    index = 1
     t = 0
     c = 0
     n = 1
@@ -706,8 +695,44 @@ def tratarPacientes():
     roott.mainloop()
 
 
+def ActualizaTabla():
+
+    marcoTodos = LabelFrame(root, text = "Pacientes Ingresados",bd = 4 , width = 290 , height = 325, bg = "#EDF0F2")
+    marcoTodos.place(x=880 , y = 175)
+    #estilo
+    style = ttk.Style()
+    style.configure('Treeview', background = "#C0EAF8",foreground = "black", fieldBackground = "#C0EAF8")
+    style.theme_use("default")
+    style.map('Treeview',background=[('selected','#DCA44C')])
+    #creacion de tabla
+    tablaTodos = ttk.Treeview(root , columns=(0,1, 2), show='headings', height=12)
+    tablaTodos.place(x=904, y=200)
+    tablaTodos.tag_configure('oddrow',background="#26C1F4")
+    tablaTodos.tag_configure('evenrow',background="#C0EAF8")
+    tablaTodos.heading(0, text = "N°")
+    tablaTodos.heading(1, text = "Nombre")
+    tablaTodos.heading(2, text = "Rut")
+    tablaTodos.column(0, width = 10, minwidth =25)
+    tablaTodos.column(1, width = 120)
+    tablaTodos.column(2, width = 120)
 
 
+
+    #agregando elementos
+    index = 1
+    for i in range(0,listaEnlazada.contador()):
+
+        if index % 2 == 0:
+            tablaTodos.insert(parent='', index=i, iid=i, values=(index,listaEnlazada[i].getNombre(), listaEnlazada[i].getRut()), tags = ('evenrow'))
+            
+        else:
+            tablaTodos.insert(parent='', index=i, iid=i, values=(index,listaEnlazada[i].getNombre(), listaEnlazada[i].getRut()), tags = ('oddrow'))
+            
+        index+=1
+
+    
+    btnC = Button(root, text="i", borderwidth=0, bg="#0026fe", fg = "white",font=("Cascadia Code PL",10,'bold') ,width=2,height=1, command =lambda: [info(tablaTodos)]  )
+    btnC.place(x = 1100, y=462)
 
 def dashboard():
      lista = ListaEnlazada()
@@ -725,7 +750,7 @@ root = Tk()
 root.title("Emergencias Medicas")
  
 
-root.geometry("1200x500")
+root.geometry("1200x525")
 
 
 
@@ -734,7 +759,7 @@ header = Frame(root, width = 1200, height = 160, bg = "white")
 header.grid(columnspan = 5, row = 0)
 
 #cuerpo
-body = Frame(root, width = 1200, height = 340, bg = "#0026fe")
+body = Frame(root, width = 1200, height = 390, bg = "#0026fe")
 body.grid(columnspan = 5, row = 1)
 
 #botones principales
@@ -799,17 +824,67 @@ imgL = ImageTk.PhotoImage(imgL)
 limpiar = Button(root, image=imgL, borderwidth=0, bg="#0026fe", command =lambda: bLimpiar() ).place(x= 540, y= 435)
 
 
-Label(root, text = "Prox. Paciente",bg="#0026fe",fg="white",height = 1,font=("Aharoni",12,'bold') ).place(x=918,y=250)
 
-#textBox prox paciente
-proxPacienteF = Frame(root, height = 65, width= 160, relief = "sunken", bg = "#B3B6B7").place(x=900, y=300)
-muestra = Label(root,textvariable=txt,bg="#0026fe",fg="white",font=("Aharoni",12,'bold')).place(x=890, y=300)
+marcoT = LabelFrame(root, text = "Pacientes Ingresados",bd = 4 , width = 290 , height = 325, bg = "#EDF0F2")
+marcoT.place(x=880 , y = 175)
+#estilo
+style = ttk.Style()
+style.configure('Treeview', background = "#C0EAF8",foreground = "black", fieldBackground = "#C0EAF8")
+style.theme_use("default")
+style.map('Treeview',background=[('selected','#DCA44C')])
+#creacion de tabla
+tablaTo = ttk.Treeview(root , columns=(0,1, 2), show='headings', height=12)
+tablaTo.place(x=904, y=200)
+tablaTo.tag_configure('oddrow',background="#26C1F4")
+tablaTo.tag_configure('evenrow',background="#C0EAF8")
+tablaTo.heading(0, text = "N°")
+tablaTo.heading(1, text = "Nombre")
+tablaTo.heading(2, text = "Rut")
+tablaTo.column(0, width = 10, minwidth =25)
+tablaTo.column(1, width = 120)
+tablaTo.column(2, width = 120)
+
+
+
+#agregando elementos
+index = 1
+for i in range(0,listaEnlazada.contador()):
+
+    if index % 2 == 0:
+        tablaTo.insert(parent='', index=i, iid=i, values=(index,listaEnlazada[i].getNombre(), listaEnlazada[i].getRut()), tags = ('evenrow'))
+        
+    else:
+        tablaTo.insert(parent='', index=i, iid=i, values=(index,listaEnlazada[i].getNombre(), listaEnlazada[i].getRut()), tags = ('oddrow'))
+        
+    index+=1
+
+btnC = Button(root, text="i", borderwidth=0, bg="#0026fe", fg = "white",font=("Cascadia Code PL",10,'bold') ,width=2,height=1, command =lambda: [info(tablaTo)]  )
+btnC.place(x = 1100, y=462)
+
+
+
+
+
+
+       
+
+
+
+
+
+
+
+
+
+
+#proxPacienteF = Frame(root, height = 65, width= 160, relief = "sunken", bg = "#B3B6B7").place(x=900, y=300)
+#muestra = Label(root,textvariable=txt,bg="#0026fe",fg="white",font=("Aharoni",12,'bold')).place(x=890, y=300)
 
 
 #boton siguiente
 imgS = Image.open('images/siguiente.png')
 imgS = ImageTk.PhotoImage(imgS)
-siguiente =Button(root, image=imgS, borderwidth=0, bg="#0026fe", command = lambda: [dashboard()]).place(x= 930, y= 400)
+siguiente =Button(root, image=imgS, borderwidth=0, bg="#0026fe", command = lambda:print("")).place(x= 930, y= 600)
 
 #imgDb = Image.open('images/dashboard.png')
 #imgDb = ImageTk.PhotoImage(imgDb)
