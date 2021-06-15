@@ -46,9 +46,6 @@ listaEnlazada.adicionarFinal(Paciente("Silvia Gonzalez","27039327-6","M","portug
 listaEnlazada.adicionarFinal(Paciente("Silvia Gonzalez","27039327-6","M","portugal 272","1-Hemorragia Traumática","normal","traumatologia",False  ,"jose Perdomo","","","","",""))
 listaEnlazada.adicionarFinal(Paciente("Silvia Gonzalez","27039327-6","M","portugal 272","1-Hemorragia Traumática","normal","neurologia",False  ,"jose Perdomo","","","","",""))
 
-
-
-
 listaTrauma.adicionarFinal(Paciente("Silvia Gonzalez","27039327-6","M","portugal 272","1-Hemorragia Traumática","normal","traumatologia",False  ,"jose Perdomo","","","","",""))
 listaTrauma.adicionarFinal(Paciente("Silvia Gonzalez","27039327-6","M","portugal 272","1-Hemorragia Traumática","normal","traumatologia",False  ,"jose Perdomo","","","","",""))
 listaTrauma.adicionarFinal(Paciente("Silvia Gonzalez","27039327-6","M","portugal 272","1-Hemorragia Traumática","normal","traumatologia",False  ,"jose Perdomo","","","","",""))
@@ -64,8 +61,6 @@ listaNeuro.adicionarFinal(Paciente("Silvia Gonzalez","27039327-6","M","portugal 
 listaNeuro.adicionarFinal(Paciente("Silvia Gonzalez","27039327-6","M","portugal 272","---","normal","traumatologia",False  ,"jose Perdomo","","","","",""))
 listaNeuro.adicionarFinal(Paciente("Silvia Gonzalez","27039327-6","M","portugal 272","1-Hemorragia Traumática","normal","neurologia",False  ,"jose Perdomo","","","","",""))
 
-
-
 listaCardio.adicionarFinal(Paciente("Silvia Gonzalez","27039327-6","M","portugal 272","---","normal","traumatologia",False  ,"jose Perdomo","","","","",""))
 listaCardio.adicionarFinal(Paciente("Silvia Gonzalez","27039327-6","M","portugal 272","---","normal","traumatologia",False  ,"jose Perdomo","","","","",""))
 listaCardio.adicionarFinal(Paciente("Silvia Gonzalez","27039327-6","M","portugal 272","---","normal","traumatologia",False  ,"jose Perdomo","","","","",""))
@@ -74,21 +69,7 @@ listaCardio.adicionarFinal(Paciente("Silvia Gonzalez","27039327-6","M","portugal
 
 
 #Lista de medicos
-#listaMedicosTrauma = ListaMedicosTrauma([medico])
-#listaMedicosTrauma.agregar(Medico("alberto","26970671-6","M","las casas 83","001","Traumatologia",542))
 medico = ["Dr. Alberto Rojas","26970671-6","No disponible","No Disponible","543","Traumatologia"]
-
-def bSiguiente():
-    txtN = StringVar()
-    txtR = StringVar()
-    
-    sigN = Label(root, textvariable= txtN,bg = "#B3B6B7", fg="black",height = 1,font=("Cascadia Code PL SemiBold",13) )
-    sigN.place(x=900 , y = 300)
-    txtN.set(listaCompleta.getNombre().upper())
-    
-    sigR = Label(root, textvariable= txtR,bg = "#B3B6B7", fg="black",height = 1,font=("Cascadia Code PL SemiBold",13) )
-    sigR.place(x=900, y=329 )
-    txtR.set(listaCompleta.getRut().upper())
 
 
 
@@ -246,9 +227,7 @@ def ventanaAtencion():
         direccion = Entry(root, width=40)
         direccion.place(x=170,y=120)
 
-        #Label(root, text="cama Asignada:").grid(pady=5, row=4, column=0)
-        #camaAsig = Entry(root, width=40)
-        #camaAsig.grid(padx=5, row=4, column=1)
+    
 
         Label(root, text="Diagnostico Inicial:",bg = "#00B8FF").place(x=40,y=150)
         diagI= Spinbox(root, values=dIniciales, width = 30)
@@ -274,12 +253,6 @@ def ventanaAtencion():
         cardio.place(x=170,y=250)
 
         
-        
-
-        #Label(root, text="numero de atencion:").grid(pady=5, row=6, column=0)
-        #numAtencion = Entry(root, width=40)
-        #numAtencion.grid(padx=5, row=6, column=1)
-
             
         imgAgregar = Image.open('images/solAtenAgregar.png')
         imgAgregar= ImageTk.PhotoImage(imgAgregar)
@@ -290,15 +263,7 @@ def ventanaAtencion():
         imgBack= ImageTk.PhotoImage(imgBack)
         back = Button(root, image=imgBack, borderwidth=0, bg = "#00B8FF", command=lambda: [ close_window(root)  ])
         back.place(x=280 ,  y = 280)
-        #agregar = Button(root, text="Agregar", width=50, command=lambda: [distribuirListas(nombre.get(),rut.get(),sexo.get(),direccion.get(),diagI.get(),estado.get(),despacho.get()), close_window(root)   ])
-        #agregar.place(x=50,y=300)
-
         
-
-        #mostrar = Button(root, text="Listado de Pacientes", width=50, command=lambda: btnMostrar())
-        #mostrar.grid(padx=10, pady=10, row=7, column=0, columnspan=2)
-        #listaCompleta.agregar(Paciente(nombre.get(),rut.get(),sexo.get(),direccion.get(),diagI.get(),estado.get(),despacho.get(),"","")), listar.mostrar(),
-                                    #nombre,rut,sexo,direccion,diagI,estado,despacho,"","" 
         root.mainloop()
 
 
@@ -798,7 +763,14 @@ def dashboard():
                 return "(Cardiologia)"
         else:
             return ""
-      
+
+    def conTrauma():
+        cont = 0
+        for x in range(0,listaEnlazada.contador()):
+            if listaEnlazada[x].getDiagnosticoI() == "1-Hemorragia Traumática":
+                cont = cont + 1
+        return cont
+    
     def contDiagnostico():
         tipo1 = 0
         tipo2 = 0
@@ -807,18 +779,20 @@ def dashboard():
         tipo5 = 0
         for x in range(0,listaEnlazada.contador()):
             if listaEnlazada[x].getDiagnosticoI() == "1-Hemorragia Traumática":
-                tipo1 =+1
+                tipo1 = tipo1 + 1
             elif listaEnlazada[x].getDiagnosticoI() == "2-Impacto de bala":
-                tipo2 =+1
+                tipo2 = tipo2 + 1
             elif listaEnlazada[x].getDiagnosticoI() == "3-Fractura ósea":
-                tipo3 =+1
+                tipo3 = tipo3 + 1
             elif listaEnlazada[x].getDiagnosticoI() == "4-Infección bacteriana":
-                tipo4 =+1
+                tipo4 = tipo4 + 1
             elif listaEnlazada[x].getDiagnosticoI() == "5-otro":
-                tipo5 =+1
+                tipo5 = tipo5 + 1
         
-        result = "Hemorragia Traumatica: "+str(tipo1)+"\nImpacto de bala: "+str(tipo2)+"\nFractura Osea: "+str(tipo3)+"\nInfeccion bacteriana: "+str(tipo4)+"\nOtro: "+str(tipo5)
-        return result
+        result = "Hemorragia Traumatica: "+str(tipo1)
+        re = "\nImpacto de bala: "+str(tipo2)+"\nFractura Osea: "+str(tipo3)+"\nInfeccion bacteriana: "+str(tipo4)+"\nOtro: "+str(tipo5)
+        return result + re
+        
 
 
     trauma = np.array(listaTrauma.contador()).astype(int)
@@ -872,7 +846,7 @@ def dashboard():
 
     Txt_0  = StringVar()
 
-    txtD = StringVar() 
+    txtHT = StringVar() 
 
     popup = Toplevel()
 
@@ -885,7 +859,7 @@ def dashboard():
     mayorE = Frame(popup, width=320, height=140, bg = "#00B8FF")
     mayorE.place(x=20,y=20)
     
-    txtD.set(str(contDiagnostico()))
+    
     Txt_0.set("Pacientes Por Especialidad")
     
 
@@ -901,13 +875,17 @@ def dashboard():
 
     Txt_6.set("Promedios por Especialidad")     
 
-    Txt_7.set("Traumatologia :"+str(mediaTrauma))     
+    Txt_7.set("Traumatologia: "+str(mediaTrauma))     
 
     Txt_8.set("Neurologia: "+str(mediaNeuro))
 
-    Txt_9.set("Cardiologia: "+str(mediaCardio))    
+    Txt_9.set("Cardiologia: "+str(mediaCardio)) 
 
-    Label(popup, textvariable = Txt_0,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",11) ).place(x=30,y=30)
+    txtHT.set(contDiagnostico())  
+
+     
+
+    Label(popup, textvariable = Txt_0,bg = "#00B8FF", fg="red",height = 1,font=("Cascadia Code PL SemiBold",11) ).place(x=30,y=30)
 
     Label(popup, textvariable = Txt_1,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=50)
     Label(popup, textvariable = Txt_2,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=70)
@@ -917,11 +895,14 @@ def dashboard():
 
 
     Frame(popup, width=320, height=130, bg = "#00B8FF").place(x=20,y=180)
-    Label(popup, text =  "Pacientes Por Diag. Inicial",bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",11) ).place(x=30,y=180)
-    Label(popup, textvariable = txtD,bg = "#00B8FF", fg="black",font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=210)
+    Label(popup, text =  "Pacientes Por Diag. Inicial",bg = "#00B8FF", fg="red",height = 1,font=("Cascadia Code PL SemiBold",11) ).place(x=30,y=180)
+    #Label(popup, text = "Hemorragia Traumática: ",bg = "#00B8FF", fg="black",font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=210)
+    Label(popup, textvariable = txtHT,bg = "#00B8FF", fg="black",font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=210)
+
+
 
     Frame(popup, width=320, height=90, bg = "#00B8FF").place(x=20,y=330)
-    Label(popup, text = "Promedio Por Especialidad",bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",11) ).place(x=30,y=330)
+    Label(popup, text = "Promedio Por Especialidad",bg = "#00B8FF", fg="red",height = 1,font=("Cascadia Code PL SemiBold",11) ).place(x=30,y=330)
     Label(popup, textvariable = Txt_7,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=350)
     Label(popup, textvariable = Txt_8,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=370)
     Label(popup, textvariable = Txt_9,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=390)
@@ -930,7 +911,7 @@ def dashboard():
     
     imgI = Image.open('images/grafico.png')
     imgI = ImageTk.PhotoImage(imgI)
-    listaE = Button(popup, image=imgI, bg="#C0EAF8",borderwidth=0,command=lambda: graficarDatos() )
+    listaE = Button(popup, image=imgI, bg="#C0EAF8",borderwidth=0,command=lambda: [graficarDatos()] )
     listaE.place(x=470,y=373)
 
     #=======================
@@ -1090,11 +1071,6 @@ btnC = Button(root, text="i", borderwidth=0, bg="#0026fe", fg = "white",font=("C
 btnC.place(x = 1100, y=462)
 
 
-
-#boton siguiente
-imgS = Image.open('images/siguiente.png')
-imgS = ImageTk.PhotoImage(imgS)
-siguiente =Button(root, image=imgS, borderwidth=0, bg="#0026fe", command = lambda:print("")).place(x= 930, y= 600)
 
 
 display_logo('./images/logoucen.png',0,0)
