@@ -66,80 +66,10 @@ class Paciente( Persona, Medico) :
     
 
 
-class ListaTrauma:
-
-    listaPacientes = []  # Esta lista contendrá objetos de la clase Paciente
-
-    def __init__(self, listaPacientes=[]):
-        self.paciente = listaPacientes  
-
-    def getNombre(self):
-        for paciente in self.listaPacientes:
-            return paciente.getNombre()
-
-    def getRut(self):
-        for paciente in self.listaPacientes:
-            return paciente.getRut()
-    
-    def getEstado(self):
-        for paciente in self.listaPacientes:
-            return paciente.getEstado()
-
-    def getDiagnosticoI(self):
-        for paciente in self.listaPacientes:
-            return paciente.getDiagnosticoI()
-    
-
-    def agregar(self, paciente):  
-        self.listaPacientes.append(paciente)
-
-    def mostrar(self):
-        for paciente in self.listaPacientes:
-            print(paciente)
-        return "no hay pacientes"
-
-    def buscar(self, rut):
-        for paciente in self.listaPacientes:
-            if paciente.getRut() == rut:
-                return paciente
-        return "Paciente no registrado"
 
 
-class ListaCardioo:
 
-    listaPaciente = []  # Esta lista contendrá objetos de la clase Paciente
 
-    def __init__(self, listaPaciente=[]):
-        self.paciente = listaPaciente       
-
-    def agregar(self, paciente):  
-        self.listaPaciente.append(paciente)
-
-    def mostrar(self):
-        for paciente in self.listaPaciente:
-            return paciente
-
-    def getNombre(self):
-        for paciente in self.listaPaciente:
-           return paciente.getNombre()
-    
-    def getRut(self):
-        for paciente in self.listaPaciente:
-           return paciente.getRut()
-    
-    def getEstado(self):
-        for paciente in self.listaPaciente:
-           return paciente.getEstado()
-
-    def getDiagnosticoI(self):
-        for paciente in self.listaPaciente:
-           return paciente.getDiagnosticoI()
-
-    def buscar(self, rut):
-        for paciente in self.listaPaciente:
-            if paciente.getRut() == rut:
-                return paciente
-        return "Paciente no registrado"
 
 
 class ListaCompleta():
@@ -237,53 +167,7 @@ class ListaCompleta():
                 paciente.setDiagnostico(diagnostico)
             paciente.setRut(rut) 
 
-    
-                
-
-
         
-        
-        
-
-
-
-class ListaNeuro:
-
-    listaPaciente = []  # Esta lista contendrá objetos de la clase Paciente
-
-    def __init__(self, listaPaciente=[]):
-        self.paciente = listaPaciente
-
-    def getNombre(self):
-        for paciente in self.listaPaciente:
-            return paciente.getNombre()
-    
-    def getRut(self):
-        for paciente in self.listaPaciente:
-            return paciente.getRut()
-        
-    def getEstado(self):
-        for paciente in self.listaPaciente:
-            return paciente.getEstado()
-
-    def getDiagnosticoI(self):
-        for paciente in self.listaPaciente:
-            return paciente.getDiagnosticoI() 
-    
-
-    def agregar(self, paciente):  
-        self.listaPaciente.append(paciente)
-
-    def mostrar(self):
-        for paciente in self.listaPaciente:
-            return paciente
-        return ""
-
-    def buscar(self, rut):
-        for paciente in self.listaPaciente:
-            if paciente.getRut() == rut:
-                return paciente
-        return "Paciente no registrado"
 
 
 
@@ -362,7 +246,9 @@ class ListaEnlazada:
         while Nodo != None:
             len = len + 1
             Nodo = Nodo.proximo
+        print(len)
         return len
+        
 
     def borrarPrimero(self):
         Nodo = self.cabeza
@@ -511,6 +397,7 @@ class ListaTrauma:
         while Nodo != None:
             len = len + 1
             Nodo = Nodo.proximo
+        print(len)
         return len
 
     def borrarPrimero(self):
