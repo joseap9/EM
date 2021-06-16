@@ -10,6 +10,8 @@ from Paciente import *
 from Persona import *
 from Especialidad import *
 from functions import display_logo
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 
 
@@ -74,8 +76,8 @@ medico = ["Dr. Alberto Rojas","26970671-6","No disponible","No Disponible","543"
 
 
 def bLimpiar():
-    frame = Frame(root, width=410,height=221, bg ="#B3B6B7")
-    frame.place(x=404, y=200)
+    frame = Frame(root, width=422,height=283, bg ="#B3B6B7")
+    frame.place(x=404, y=150)
     imgLim = Image.open("images/defLimpiar.png")
     imgLim = ImageTk.PhotoImage(imgLim)
     img_label = tk.Label(image = imgLim , bg="#B3B6B7")
@@ -86,7 +88,7 @@ def bLimpiar():
 
 
 
-def mostrarEstado(rut,rutD, rutT, comprobar):
+def mostrarEstado(rut,rutD, rutT, rutN,comprobar):
     if len(comprobar) == 0:
         messagebox.showwarning("Warning","Campo ' rut ' Obligatorio", parent = root)
     else:
@@ -96,7 +98,16 @@ def mostrarEstado(rut,rutD, rutT, comprobar):
         frame = Frame(root, width=410,height=221, bg ="#B3B6B7")
         frame.place(x=404, y=200)
         
-        
+        tNombre = Frame(root,width=413,height=23,bg="#909497" )
+        tNombre.place(x=404,y=152)
+        tNombreF = Frame(root,width=413,height=25,bg="#B3B6B7" )
+        tNombreF.place(x=404,y=175)
+
+        Label(root, text = "Paciente",bg = "#909497", fg="black",height = 1,font=("Cascadia Code PL",12) ).place(x=530,y=150)
+        mNombre = Label(root, textvariable= txt2,bg = "#B3B6B7", fg="#0026fe",height = 1,font=("Cascadia Code PL",10) )
+        mNombre.place(x=440,y=175)
+        txt2.set(rutN) 
+
         tMedico = Frame(root,width=413,height=30,bg="#909497" )
         tMedico.place(x=404,y=200)
         Label(root, text = "Medico Tratante",bg = "#909497", fg="black",height = 1,font=("Cascadia Code PL",12) ).place(x=530,y=202)
@@ -132,23 +143,23 @@ def mostrarDatos(rut, comprobar):
     if len(comprobar) == 0:
         messagebox.showwarning("Warning","Campo ' rut ' Obligatorio", parent = root)
     else:
-        frame = Frame(root, width=150,height=221, bg ="#909497")
-        frame.place(x=404, y=200)
-        Label(root, text = "Nombre",bg = "#909497", fg="black",height = 1,font=("Cascadia Code PL SemiBold",12) ).place(x=410,y=210)
-        Label(root, text = "Rut",bg = "#909497", fg="black",height = 1,font=("Cascadia Code PL SemiBold",12) ).place(x=410,y=230)
-        Label(root, text = "Sexo",bg = "#909497", fg="black",height = 1,font=("Cascadia Code PL SemiBold",12) ).place(x=410,y=250)
-        Label(root, text = "Direccion",bg = "#909497", fg="black",height = 1,font=("Cascadia Code PL SemiBold",12) ).place(x=410,y=270)
-        Label(root, text = "Diagnostico I.",bg = "#909497", fg="black",height = 1,font=("Cascadia Code PL SemiBold",12) ).place(x=410,y=290)
-        Label(root, text = "Estado",bg = "#909497", fg="black",height = 1,font=("Cascadia Code PL SemiBold",12) ).place(x=410,y=320)
-        Label(root, text = "Despacho",bg = "#909497", fg="black",height = 1,font=("Cascadia Code PL SemiBold",12) ).place(x=410,y=340)
+        frame = Frame(root, width=150,height=271, bg ="#909497")
+        frame.place(x=404, y=150)
+        Label(root, text = "Nombre",bg = "#909497", fg="black",height = 1,font=("Cascadia Code PL SemiBold",12) ).place(x=410,y=160)
+        Label(root, text = "Rut",bg = "#909497", fg="black",height = 1,font=("Cascadia Code PL SemiBold",12) ).place(x=410,y=180)
+        Label(root, text = "Sexo",bg = "#909497", fg="black",height = 1,font=("Cascadia Code PL SemiBold",12) ).place(x=410,y=200)
+        Label(root, text = "Direccion",bg = "#909497", fg="black",height = 1,font=("Cascadia Code PL SemiBold",12) ).place(x=410,y=220)
+        Label(root, text = "Diagnostico I.",bg = "#909497", fg="black",height = 1,font=("Cascadia Code PL SemiBold",12) ).place(x=410,y=240)
+        Label(root, text = "Estado",bg = "#909497", fg="black",height = 1,font=("Cascadia Code PL SemiBold",12) ).place(x=410,y=260)
+        Label(root, text = "Despacho",bg = "#909497", fg="black",height = 1,font=("Cascadia Code PL SemiBold",12) ).place(x=410,y=280)
         #Label(root, text = "N° de Atencion",bg = "#909497", fg="black",height = 1,font=("Cascadia Code PL SemiBold",12) ).place(x=410,y=360)
         #Label(root, text = "Cama Asig",bg = "#909497", fg="black",height = 1,font=("Cascadia Code PL SemiBold",12) ).place(x=410,y=380)
    
 
         #textBox muestra datos del paciente
-        datosBox = Text(root,height = 8.5, width= 26, padx=15,pady=15, font=("Cascadia Code PL SemiBold",12) ,bg = "#B3B6B7", fg="#0026fe")
+        datosBox = Text(root,height = 11, width= 26, padx=15,pady=15, font=("Cascadia Code PL SemiBold",12) ,bg = "#B3B6B7", fg="#0026fe")
         datosBox.insert(1.0,rut)
-        datosBox.place(x=554, y=200)
+        datosBox.place(x=554, y=150)
 
 
 
@@ -426,7 +437,176 @@ def info(tabla):
 def tratarPacientes():
 
 
+    def actualizaColas():
+        #marco
+        marcoTrauma = LabelFrame(roott, text = "Traumatologia",bd = 4 , width = 290 , height = 330, bg = "#EDF0F2")
+        marcoTrauma.place(x=30 , y = 25)
+        #estilo
+        style = ttk.Style()
+        style.configure('Treeview', background = "#C0EAF8",foreground = "black", fieldBackground = "#C0EAF8")
+        style.theme_use("default")
+        style.map('Treeview',background=[('selected','#DCA44C')])
+        #creacion de tabla
+        tablaT = ttk.Treeview(roott , columns=(0,1, 2), show='headings', height=12)
+        tablaT.place(x=50 , y = 50)
+        tablaT.tag_configure('oddrow',background="#26C1F4")
+        tablaT.tag_configure('evenrow',background="#C0EAF8")
+        tablaT.heading(0, text = "N°")
+        tablaT.heading(1, text = "Nombre")
+        tablaT.heading(2, text = "Rut")
+        tablaT.column(0, width = 10, minwidth =25)
+        tablaT.column(1, width = 120)
+        tablaT.column(2, width = 120)
+        #scrollBar
+        yscrollbar = ttk.Scrollbar(roott,orient = "vertical", command = tablaT.yview)
+        yscrollbar.place(x=300,y=50)
+        #yscrollbar.place(x = 300, y =50, fill = Y)
+
+        
+
     
+        #=00=========================================================================================================================================
+        #marco
+        marcoNeuro = LabelFrame(roott, text = "Neurologia" ,bd = 4 , width = 290 , height = 330, bg = "#EDF0F2")
+        marcoNeuro.place(x=380 , y = 25)
+        #estilo
+        style = ttk.Style()
+        style.configure('Treeview', background = "#C0EAF8",foreground = "black", fieldBackground = "#C0EAF8")
+        style.theme_use("default")
+        style.map('Treeview',background=[('selected','#DCA44C')])
+        #creacion de tabla
+        tablaN = ttk.Treeview(roott , columns=(0,1, 2), show='headings', height=12)
+        tablaN.pack(side="left")
+        tablaN.place(x=400 , y = 50)
+        tablaN.tag_configure('oddrow',background="#26C1F4")
+        tablaN.tag_configure('evenrow',background="#C0EAF8")
+        tablaN.heading(0, text = "N°")
+        tablaN.heading(1, text = "Nombre")
+        tablaN.heading(2, text = "Rut")
+        tablaN.column(0, width = 10, minwidth =25)
+        tablaN.column(1, width = 120)
+        tablaN.column(2, width = 120)
+
+        #scrollBar
+        yscrollbar = ttk.Scrollbar(roott,orient = "vertical", command = tablaN.yview)
+        yscrollbar.place(x=650,y=50)
+        #yscrollbar.place(x = 300, y =50, fill = Y)
+        tablaN.configure(yscrollcommand=yscrollbar.set)
+
+        #=======================================================================================================================
+        #=00=========================================================================================================================================
+        #marco
+        marcoCardio = LabelFrame(roott, text = "Cardiologia" ,bd = 4 , width = 290 , height = 330, bg = "#EDF0F2")
+        marcoCardio.place(x=730 , y = 25)
+        #estilo
+        style = ttk.Style()
+        style.configure('Treeview', background = "#C0EAF8",foreground = "black", fieldBackground = "#C0EAF8")
+        style.theme_use("default")
+        style.map('Treeview',background=[('selected','#DCA44C')])
+        #creacion de tabla
+        tablaC = ttk.Treeview(roott , columns=(0,1, 2), show='headings', height=12)
+        tablaC.pack(side="left")
+        tablaC.place(x=750 , y = 50)
+        tablaC.tag_configure('oddrow',background="#26C1F4")
+        tablaC.tag_configure('evenrow',background="#C0EAF8")
+        tablaC.heading(0, text = "N°")
+        tablaC.heading(1, text = "Nombre")
+        tablaC.heading(2, text = "Rut")
+        tablaC.column(0, width = 10, minwidth =25)
+        tablaC.column(1, width = 120)
+        tablaC.column(2, width = 120)
+
+        #scrollBar
+        yscrollbar = ttk.Scrollbar(roott,orient = "vertical", command = tablaC.yview)
+        yscrollbar.place(x=1000,y=50)
+        #yscrollbar.place(x = 300, y =50, fill = Y)
+        tablaC.configure(yscrollcommand=yscrollbar.set)
+        
+
+        #agregando elementos
+        index = 1
+        t = 0
+        c = 0
+        n = 1
+        for i in range(0,listaEnlazada.contador()):
+            if listaEnlazada[i].getDespacho() == "traumatologia":
+                if t % 2 == 0:
+                    tablaT.insert(parent='', index=i, iid=i, values=(index,listaEnlazada[i].getNombre(), listaEnlazada[i].getRut()), tags = ('evenrow'))
+                    
+                else:
+                    tablaT.insert(parent='', index=i, iid=i, values=(index,listaEnlazada[i].getNombre(), listaEnlazada[i].getRut()), tags = ('oddrow'))
+                    
+                t+=1    
+            elif listaEnlazada[i].getDespacho() == "cardiologia":
+                if index % 2 == 0:
+                    tablaC.insert(parent='', index=i, iid=i, values=(index,listaEnlazada[i].getNombre(), listaEnlazada[i].getRut()), tags = ('evenrow'))
+                    
+                else:
+                    tablaC.insert(parent='', index=i, iid=i, values=(index,listaEnlazada[i].getNombre(), listaEnlazada[i].getRut()), tags = ('oddrow'))        
+                c+=1
+            else:
+                if index % 2 == 0:
+                    tablaN.insert(parent='', index=i, iid=i, values=(index,listaEnlazada[i].getNombre(), listaEnlazada[i].getRut()), tags = ('evenrow'))
+                    
+                else:
+                    tablaN.insert(parent='', index=i, iid=i, values=(index,listaEnlazada[i].getNombre(), listaEnlazada[i].getRut()), tags = ('oddrow'))    
+                n+=1
+        
+            index += 1
+        
+        #botones Trauma
+        imgL = Image.open('images/btnAM.png')
+        imgL = ImageTk.PhotoImage(imgL)
+        btnAM = Button(roott, image=imgL, borderwidth=0, bg="#EDF0F2", command =lambda: [altaMedica(tablaT), showInfo()]  )
+        btnAM.place(x = 265, y=310)
+
+        img = Image.open('images/btnD.png')
+        img = ImageTk.PhotoImage(img)
+        btnD = Button(roott, image=img, borderwidth=0, bg="#EDF0F2", command =lambda: selectPacient(tablaT)  )
+        btnD.place(x = 225, y=310)
+
+        imgC = Image.open('images/btnInfo.png')
+        imgC = ImageTk.PhotoImage(imgC)
+        btnC = Button(roott, image=imgC, borderwidth=0, bg="#EDF0F2", command =lambda: [info(tablaT)]  )
+        btnC.place(x = 185, y=310)
+
+        #botones Neurologia
+        
+        imgamN= Image.open('images/btnAM.png')
+        imgamN = ImageTk.PhotoImage(imgamN)
+        btnAMN = Button(roott, image=imgamN, borderwidth=0, bg="#EDF0F2", command =lambda: [altaMedica(tablaN), showInfo()]  )
+        btnAMN.place(x = 620, y=310)
+
+        imgdn = Image.open('images/btnD.png')
+        imgdn = ImageTk.PhotoImage(imgdn)
+        btnDn = Button(roott, image=imgdn, borderwidth=0, bg="#EDF0F2", command =lambda: selectPacient(tablaN)  )
+        btnDn.place(x = 580, y=310)
+
+        imgmn = Image.open('images/btnInfo.png')
+        imgmn = ImageTk.PhotoImage(imgmn)
+        btnMn= Button(roott, image=imgmn, borderwidth=0, bg="#EDF0F2", command =lambda: [info(tablaN)]  )
+        btnMn.place(x = 540, y=310)
+
+        #botones Cradiologia
+        
+        imgamC= Image.open('images/btnAM.png')
+        imgamC = ImageTk.PhotoImage(imgamC)
+        btnAMC = Button(roott, image=imgamC, borderwidth=0, bg="#EDF0F2", command =lambda: [altaMedica(tablaC), showInfo()]  )
+        btnAMC.place(x = 970, y=310)
+
+        imgdC = Image.open('images/btnD.png')
+        imgdC = ImageTk.PhotoImage(imgdC)
+        btnDC = Button(roott, image=imgdC, borderwidth=0, bg="#EDF0F2", command =lambda: selectPacient(tablaC)  )
+        btnDC.place(x = 930, y=310)
+
+        imgmC = Image.open('images/btnInfo.png')
+        imgmC = ImageTk.PhotoImage(imgmC)
+        btnMC= Button(roott, image=imgmC, borderwidth=0, bg="#EDF0F2", command =lambda: [info(tablaC)]  )
+        btnMC.place(x = 890, y=310)
+
+        roott.mainloop()
+
+
     def selectPacient(tabla):
 
 
@@ -497,7 +677,9 @@ def tratarPacientes():
 
 
     def showInfo():
-        messagebox.showinfo("Info","Alta Medica Completa\n\nActualice para reflejar cambios en tabla", parent = roott)
+        resp = messagebox.showinfo("Info","Alta Medica Completa\n\n", parent = roott)
+        if resp == "ok":
+            actualizaColas()
         
 
     
@@ -688,6 +870,11 @@ def tratarPacientes():
     roott.mainloop()
 
 
+
+
+
+
+
 def ActualizaTabla():
 
     marcoTodos = LabelFrame(root, text = "Pacientes Ingresados",bd = 4 , width = 290 , height = 325, bg = "#EDF0F2")
@@ -764,7 +951,7 @@ def dashboard():
         else:
             return ""
 
-    def conTrauma():
+
         cont = 0
         for x in range(0,listaEnlazada.contador()):
             if listaEnlazada[x].getDiagnosticoI() == "1-Hemorragia Traumática":
@@ -836,8 +1023,6 @@ def dashboard():
 
     Txt_5  = StringVar()
 
-    Txt_6  = StringVar()
-
     Txt_7  = StringVar()
 
     Txt_8  = StringVar()
@@ -850,17 +1035,14 @@ def dashboard():
 
     popup = Toplevel()
 
-    popup.geometry("700x450")
+    popup.geometry("1150x450")
 
-    popup.title("Análitica de Pacientes")
+    popup.wm_title("Análitica de Pacientes")
     popup.configure(bg="#C0EAF8")
-
-
-    mayorE = Frame(popup, width=320, height=140, bg = "#00B8FF")
-    mayorE.place(x=20,y=20)
     
     
-    Txt_0.set("Pacientes Por Especialidad")
+    
+    Txt_0.set("Análitica De Pacientes \nPor Especialidad")
     
 
     Txt_1.set("Mayor: "+str(mayorTodos)+"  "+str(mayor()))
@@ -871,48 +1053,41 @@ def dashboard():
 
     Txt_4.set("Std: "+str(stdTodos))
 
-    Txt_5.set("Total: "+str(sumaTodos))
+    Txt_5.set("Total: "+str(sumaTodos))     
 
-    Txt_6.set("Promedios por Especialidad")     
+    Txt_7.set("Promedio Traumatologia: "+str(mediaTrauma))     
 
-    Txt_7.set("Traumatologia: "+str(mediaTrauma))     
+    Txt_8.set("Promedio Neurologia: "+str(mediaNeuro))
 
-    Txt_8.set("Neurologia: "+str(mediaNeuro))
-
-    Txt_9.set("Cardiologia: "+str(mediaCardio)) 
+    Txt_9.set("Promedio Cardiologia: "+str(mediaCardio)) 
 
     txtHT.set(contDiagnostico())  
 
-     
+    mayorE = Frame(popup, width=320, height=340, bg = "#00B8FF")
+    mayorE.place(x=20,y=20)
 
-    Label(popup, textvariable = Txt_0,bg = "#00B8FF", fg="red",height = 1,font=("Cascadia Code PL SemiBold",11) ).place(x=30,y=30)
-
-    Label(popup, textvariable = Txt_1,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=50)
-    Label(popup, textvariable = Txt_2,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=70)
-    Label(popup, textvariable = Txt_5,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=90)
-    Label(popup, textvariable = Txt_3,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=110)
-    Label(popup, textvariable = Txt_4,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=130)
+    Frame(popup, width=320, height=60, bg = "light grey").place(x=20,y=20)
 
 
-    Frame(popup, width=320, height=130, bg = "#00B8FF").place(x=20,y=180)
-    Label(popup, text =  "Pacientes Por Diag. Inicial",bg = "#00B8FF", fg="red",height = 1,font=("Cascadia Code PL SemiBold",11) ).place(x=30,y=180)
+    Label(popup, textvariable = Txt_0,bg = "light grey", fg="black",font=("Cascadia Code PL SemiBold",12) ).place(x=30,y=30)
+
+    Label(popup, textvariable = Txt_1,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=90)
+    Label(popup, textvariable = Txt_2,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=110)
+    Label(popup, textvariable = Txt_5,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=130)
+    Label(popup, textvariable = Txt_3,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=150)
+    Label(popup, textvariable = Txt_4,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=170)
+    Label(popup, textvariable = Txt_7,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=190)
+    Label(popup, textvariable = Txt_8,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=210)
+    Label(popup, textvariable = Txt_9,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=230)
+    #Label(popup, text =  "Pacientes Por Diag. Inicial",bg = "#00B8FF", fg="red",height = 1,font=("Cascadia Code PL SemiBold",11) ).place(x=30,y=180)
     #Label(popup, text = "Hemorragia Traumática: ",bg = "#00B8FF", fg="black",font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=210)
-    Label(popup, textvariable = txtHT,bg = "#00B8FF", fg="black",font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=210)
-
-
-
-    Frame(popup, width=320, height=90, bg = "#00B8FF").place(x=20,y=330)
-    Label(popup, text = "Promedio Por Especialidad",bg = "#00B8FF", fg="red",height = 1,font=("Cascadia Code PL SemiBold",11) ).place(x=30,y=330)
-    Label(popup, textvariable = Txt_7,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=350)
-    Label(popup, textvariable = Txt_8,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=370)
-    Label(popup, textvariable = Txt_9,bg = "#00B8FF", fg="black",height = 1,font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=390)
-
+    Label(popup, textvariable = txtHT,bg = "#00B8FF", fg="black",font=("Cascadia Code PL SemiBold",10) ).place(x=30,y=250)
 
     
-    imgI = Image.open('images/grafico.png')
-    imgI = ImageTk.PhotoImage(imgI)
-    listaE = Button(popup, image=imgI, bg="#C0EAF8",borderwidth=0,command=lambda: [graficarDatos()] )
-    listaE.place(x=470,y=373)
+    #imgI = Image.open('images/grafico.png')
+    #imgI = ImageTk.PhotoImage(imgI)
+    #listaE = Button(popup, image=imgI, bg="#C0EAF8",borderwidth=0,command=lambda: [graficarDatos()] )
+    #listaE.place(x=470,y=373)
 
     #=======================
 
@@ -949,7 +1124,16 @@ def dashboard():
             
         index+=1
 
+    fig = plt.Figure(figsize=(4,4))
+    a = fig.add_subplot(111)
+    a.pie([listaTrauma.contador(),listaNeuro.contador(),listaCardio.contador()]) #an example data
+    a.legend(["TRAUMATOLOGIA","NEUROLOGIA","CARDIOLOGIA"],prop={'size':9}, bbox_to_anchor=(1.1, 0.1))
+    a.set_title("Pacientes Ingresados")
+    canvas = FigureCanvasTkAgg(fig, master=popup)
+    canvas.get_tk_widget().place(x=700,y=30)
+    canvas.draw()
 
+    
 
     popup.mainloop()
 
@@ -1014,7 +1198,7 @@ buscarD.place(x= 47, y= 346)
 #boton estado paciente
 img1 = Image.open('images/EstadoP.png')
 img1 = ImageTk.PhotoImage(img1)
-buscarE = Button(root, image=img1, borderwidth=0, bg="#0026fe",command=lambda:  [mostrarEstado(listaEnlazada.buscarMedicoPorRut(buscaPaciente.get()), listaEnlazada.buscarDiagnosticoPorRut(buscaPaciente.get()), listaEnlazada.buscarTratamientoPorRut(buscaPaciente.get()), buscaPaciente.get() ), ''' aqui va otra funcion '''  ])
+buscarE = Button(root, image=img1, borderwidth=0, bg="#0026fe",command=lambda:  [mostrarEstado(listaEnlazada.buscarMedicoPorRut(buscaPaciente.get()), listaEnlazada.buscarDiagnosticoPorRut(buscaPaciente.get()), listaEnlazada.buscarTratamientoPorRut(buscaPaciente.get()), listaEnlazada.buscarInfoPaciente(buscaPaciente.get()) ,buscaPaciente.get() ), ''' aqui va otra funcion '''  ])
 #txt.set(listaTrauma.buscar(buscaPaciente.get() )), listaTest.imprimir()
 buscarE.place(x= 204, y= 346)
 

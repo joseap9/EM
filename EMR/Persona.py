@@ -30,5 +30,8 @@ class Persona:
     def getDireccion(self):
         return self.direccion
 
+    def getInfoBreve(self):
+        return self.nombre + "  -  " + str(self.rut) + "  -  " + self.sexo
+
     def __str__(self):
         return self.nombre + "\n" + str(self.rut) + "\n" + self.sexo + "\n" + self.direccion

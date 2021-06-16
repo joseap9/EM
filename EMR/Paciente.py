@@ -44,7 +44,6 @@ class Paciente( Persona, Medico) :
         self.despacho = des
 
     
-    
     def solicitarAtencion(self,nombre,rut,sexo,direccion,diagnosticoI, estado, despacho, camaAsig, numAtencion):
         nuevoPaciente = Paciente(nombre,rut,sexo,direccion,diagnosticoI,estado,despacho,camaAsig,numAtencion)
         self.listaPacientes.append(nuevoPaciente)
@@ -291,6 +290,13 @@ class ListaEnlazada:
             if  rut == n.getRut():
                 return n.getTratamiento()
         return "---"
+
+    def buscarInfoPaciente(self,rut):
+        for n in self.iterar():
+            if  rut == n.getRut():
+                return n.getInfoBreve()
+        return "---"
+
 
     def buscarDiagnosticoPorRut(self , rut):
         
