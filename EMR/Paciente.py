@@ -55,9 +55,26 @@ class Paciente( Persona, Medico) :
                 print("hay ", n, "pacientes agregados")
             n = n + 1
 
-    def muestra(self):
-        for x in range(len(self.listaPacientes)):
-            return self.listaPacientes[x].__str__()
+    def muestraTree(self):
+        diag = ""
+        tra = ""
+        am = ""
+        if len(self.diagnostico) != 0:
+            diag = self.diagnostico
+        else:
+            diag = "No Disponible"
+        
+        if len(self.tratamiento) != 0:
+            tra = self.tratamiento
+        else:
+            tra = "No Disponible"
+
+        if self.altaMedica == False:
+            am = "No"
+        else:
+            am = "Si"
+
+        return "        Datos del Paciente"+"\n\nNombre: "+self.nombre+ "\nRut: " + self.rut +"\nDireccion: "+self.direccion +"\n\n         Estado Del Paciente\n\nEstado: " + self.estado + "\nAlta medica: "+am+"\nDiagnostico: "+diag+"\nTratamiento: "+tra 
 
     
     def __str__(self):
